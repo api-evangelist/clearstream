@@ -1,124 +1,46 @@
+aid: clearstream
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/clearstream/refs/heads/main/apis.yml
 name: Clearstream
-description: Clearstream is a leading provider of post-trade infrastructure services for international securities transactions. They offer settlement, custody, and collateral management services for bonds, equities, and investment funds.
-url: https://www.clearstream.com
-created: 2024-01-15 00:00:00+00:00
-modified: 2024-01-15 00:00:00+00:00
-apis:
-- name: Clearstream Creation API
-  description: API for creating and managing securities accounts, sub-accounts, and related entities in Clearstream's system.
-  baseURL: https://api.clearstream.com/creation/v1
-  humanURL: https://www.clearstream.com/clearstream-en/products-and-services/connectivity
-  properties:
-  - type: Documentation
-    url: https://developer.clearstream.com/docs/creation-api
-  - type: OpenAPI
-    url: https://api.clearstream.com/creation/v1/openapi.json
-  - type: Authentication
-    url: https://developer.clearstream.com/docs/authentication
-  contact:
-  - FN: API Support
-    email: api.support@clearstream.com
-  tags:
-  - Financial Services
-  - Securities
-  - Post-Trade
-  - Settlement
-- name: Clearstream Settlement API
-  description: API for processing securities settlement instructions, including delivery versus payment and free of payment transactions.
-  baseURL: https://api.clearstream.com/settlement/v1
-  humanURL: https://www.clearstream.com/clearstream-en/products-and-services/settlement
-  properties:
-  - type: Documentation
-    url: https://developer.clearstream.com/docs/settlement-api
-  - type: OpenAPI
-    url: https://api.clearstream.com/settlement/v1/openapi.json
-  - type: Authentication
-    url: https://developer.clearstream.com/docs/authentication
-  contact:
-  - FN: API Support
-    email: api.support@clearstream.com
-  tags:
-  - Financial Services
-  - Securities
-  - Settlement
-  - DVP
-- name: Clearstream Custody API
-  description: API for accessing custody account information, holdings, transactions, and corporate actions.
-  baseURL: https://api.clearstream.com/custody/v1
-  humanURL: https://www.clearstream.com/clearstream-en/products-and-services/custody
-  properties:
-  - type: Documentation
-    url: https://developer.clearstream.com/docs/custody-api
-  - type: OpenAPI
-    url: https://api.clearstream.com/custody/v1/openapi.json
-  - type: Authentication
-    url: https://developer.clearstream.com/docs/authentication
-  contact:
-  - FN: API Support
-    email: api.support@clearstream.com
-  tags:
-  - Financial Services
-  - Securities
-  - Custody
-  - Holdings
-- name: Clearstream Reporting API
-  description: API for retrieving reports, statements, and analytics on securities positions, transactions, and fees.
-  baseURL: https://api.clearstream.com/reporting/v1
-  humanURL: https://www.clearstream.com/clearstream-en/products-and-services/reporting
-  properties:
-  - type: Documentation
-    url: https://developer.clearstream.com/docs/reporting-api
-  - type: OpenAPI
-    url: https://api.clearstream.com/reporting/v1/openapi.json
-  - type: Authentication
-    url: https://developer.clearstream.com/docs/authentication
-  contact:
-  - FN: API Support
-    email: api.support@clearstream.com
-  tags:
-  - Financial Services
-  - Securities
-  - Reporting
-  - Analytics
-- name: Clearstream Collateral Management API
-  description: API for managing collateral pools, triparty collateral arrangements, and margin requirements.
-  baseURL: https://api.clearstream.com/collateral/v1
-  humanURL: https://www.clearstream.com/clearstream-en/products-and-services/collateral-management
-  properties:
-  - type: Documentation
-    url: https://developer.clearstream.com/docs/collateral-api
-  - type: OpenAPI
-    url: https://api.clearstream.com/collateral/v1/openapi.json
-  - type: Authentication
-    url: https://developer.clearstream.com/docs/authentication
-  contact:
-  - FN: API Support
-    email: api.support@clearstream.com
-  tags:
-  - Financial Services
-  - Securities
-  - Collateral
-  - Margin
-common:
-- type: Portal
-  url: https://developer.clearstream.com
-- type: Terms of Service
-  url: https://www.clearstream.com/clearstream-en/legal-and-regulatory
-- type: Authentication
-  url: https://developer.clearstream.com/docs/authentication
-- type: Status
-  url: https://status.clearstream.com
-- type: Support
-  url: https://www.clearstream.com/clearstream-en/contact
-maintainers:
-- FN: Clearstream API Team
-  email: api.support@clearstream.com
-  url: https://developer.clearstream.com
 tags:
-- Financial Services
-- Securities
-- Post-Trade Infrastructure
-- Settlement
-- Custody
-- Collateral Management
-- Capital Markets
+  - Financial Services
+  - Securities
+  - Post-Trade Infrastructure
+  - Settlement
+  - Custody
+  - Collateral Management
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+access: 3rd-Party
+created: '2024-01-15'
+modified: '2026-03-16'
+position: Consumer
+description: >-
+  Clearstream is a leading provider of post-trade infrastructure services for
+  international securities transactions. They offer settlement, custody, and
+  collateral management services for bonds, equities, and investment funds.
+apis:
+  - aid: clearstream:clearstream-connectivity
+    name: Clearstream Connectivity
+    tags:
+      - Financial Services
+      - Securities
+      - Post-Trade
+    humanURL: https://www.clearstream.com/clearstream-en/products-and-services/connectivity
+    properties:
+      - url: https://www.clearstream.com/clearstream-en/products-and-services/connectivity
+        type: Documentation
+    description: >-
+      Clearstream provides post-trade infrastructure services for settlement,
+      custody, and collateral management of international securities.
+common:
+  - type: Website
+    url: https://www.clearstream.com/
+  - type: Support
+    url: https://www.clearstream.com/clearstream-en/contact
+  - type: Terms of Service
+    url: https://www.clearstream.com/clearstream-en/legal-and-regulatory
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
+specificationVersion: '0.19'
