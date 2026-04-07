@@ -3,12 +3,12 @@ url: >-
   https://raw.githubusercontent.com/api-evangelist/clearstream/refs/heads/main/apis.yml
 name: Clearstream
 tags:
-  - Financial Services
-  - Securities
-  - Post-Trade Infrastructure
-  - Settlement
-  - Custody
   - Collateral Management
+  - Custody
+  - Financial Services
+  - Post-Trade Infrastructure
+  - Securities
+  - Settlement
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
@@ -24,8 +24,8 @@ apis:
     name: Clearstream Connectivity
     tags:
       - Financial Services
-      - Securities
       - Post-Trade
+      - Securities
     humanURL: https://www.clearstream.com/clearstream-en/products-and-services/connectivity
     properties:
       - url: https://www.clearstream.com/clearstream-en/products-and-services/connectivity
