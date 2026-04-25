@@ -1,0 +1,159 @@
+# Naftiko capabilities profile for Clearstream post-trade services.
+# Clearstream's developer surface is message-based (SWIFT FIN/FileAct,
+# ISO 15022 MT and ISO 20022 MX) rather than REST. The capabilities below
+# describe high-value verbs that an agent could invoke through
+# ClearstreamXact, Xact via SWIFT, Xact File Transfer, CASCADE, Vestima,
+# and CmaX channels.
+provider: clearstream
+name: Clearstream
+description: >-
+  Capabilities cover settlement instruction, custody account inquiry,
+  corporate-action processing, triparty collateral management, and fund
+  order routing across Clearstream's connectivity products. Messages
+  follow ISO 15022 / ISO 20022 standards.
+capabilities:
+  - id: clearstream.settlement.instruct
+    name: Instruct settlement
+    description: >-
+      Submit a delivery- or receive-versus-payment / free-of-payment
+      settlement instruction over Xact via SWIFT or Xact File Transfer.
+    api: clearstream:xact-via-swift
+    inputs:
+      - safekeeping-account
+      - isin
+      - quantity
+      - settlement-date
+      - delivery-type
+      - counterparty-bic
+      - amount
+      - currency
+    outputs:
+      - message-reference
+      - status
+      - matching-status
+
+  - id: clearstream.settlement.status
+    name: Get settlement status
+    description: Retrieve current status of a previously submitted settlement instruction.
+    api: clearstream:xact-via-swift
+    inputs:
+      - message-reference
+      - safekeeping-account
+    outputs:
+      - status
+      - matching-status
+      - settlement-date
+
+  - id: clearstream.custody.holdings
+    name: Get custody holdings
+    description: Retrieve end-of-day or intraday holdings for a custody account.
+    api: clearstream:xact-file-transfer
+    inputs:
+      - safekeeping-account
+      - as-of-date
+    outputs:
+      - holdings
+      - statement-id
+
+  - id: clearstream.corporate-actions.list
+    name: List corporate action notifications
+    description: Retrieve corporate-action notifications for held positions.
+    api: clearstream:xact-file-transfer
+    inputs:
+      - safekeeping-account
+      - from-date
+      - to-date
+    outputs:
+      - events
+
+  - id: clearstream.corporate-actions.elect
+    name: Submit corporate action election
+    description: Submit a voluntary or choice corporate-action election.
+    api: clearstream:xact-via-swift
+    inputs:
+      - event-id
+      - safekeeping-account
+      - option-code
+      - quantity
+    outputs:
+      - message-reference
+      - status
+
+  - id: clearstream.collateral.allocate
+    name: Allocate triparty collateral
+    description: Allocate or substitute collateral against an exposure in CmaX.
+    api: clearstream:cmax
+    inputs:
+      - exposure-id
+      - collateral-giver
+      - collateral-taker
+      - target-value
+      - eligibility-set
+    outputs:
+      - allocation-id
+      - status
+
+  - id: clearstream.collateral.exposure
+    name: Get triparty exposure
+    description: Retrieve current value, haircut, and coverage for a triparty exposure.
+    api: clearstream:cmax
+    inputs:
+      - exposure-id
+    outputs:
+      - market-value
+      - haircut
+      - coverage
+
+  - id: clearstream.funds.subscribe
+    name: Submit fund subscription
+    description: Route a fund subscription order via Vestima.
+    api: clearstream:vestima
+    inputs:
+      - isin
+      - investor
+      - amount
+      - currency
+      - trade-date
+    outputs:
+      - order-reference
+      - status
+
+  - id: clearstream.funds.redeem
+    name: Submit fund redemption
+    description: Route a fund redemption order via Vestima.
+    api: clearstream:vestima
+    inputs:
+      - isin
+      - investor
+      - units
+      - trade-date
+    outputs:
+      - order-reference
+      - status
+
+  - id: clearstream.cascade.instruct
+    name: Instruct CASCADE settlement
+    description: Submit a domestic German CSD settlement instruction via CASCADE.
+    api: clearstream:cascade
+    inputs:
+      - account
+      - isin
+      - quantity
+      - settlement-date
+      - counterparty
+    outputs:
+      - message-reference
+      - status
+
+  - id: clearstream.reporting.statement
+    name: Retrieve statement
+    description: Pull holding, transaction or fee statements via Xact File Transfer.
+    api: clearstream:xact-file-transfer
+    inputs:
+      - safekeeping-account
+      - statement-type
+      - as-of-date
+      - format
+    outputs:
+      - statement-id
+      - file-uri

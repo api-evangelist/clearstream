@@ -1,0 +1,125 @@
+extends:
+  - spectral:oas
+
+# Spectral linting rules tuned for Clearstream connectivity.
+# Clearstream's developer surface is largely message-based (SWIFT FIN/FileAct,
+# ISO 15022 MT and ISO 20022 MX), so these rules focus on the descriptive
+# OpenAPI / AsyncAPI overlays that catalogue those channels rather than a
+# public REST API.
+rules:
+  clearstream-info-contact:
+    description: API contact information must be present.
+    severity: error
+    given: "$.info"
+    then:
+      field: contact
+      function: truthy
+
+  clearstream-info-license:
+    description: API license must be declared.
+    severity: warn
+    given: "$.info"
+    then:
+      field: license
+      function: truthy
+
+  clearstream-info-iso-version:
+    description: Info description should reference ISO 15022 or ISO 20022.
+    severity: warn
+    given: "$.info.description"
+    then:
+      function: pattern
+      functionOptions:
+        match: "ISO\\s?(15022|20022)"
+
+  clearstream-server-https:
+    description: All server URLs must use HTTPS.
+    severity: error
+    given: "$.servers[*].url"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^https://"
+
+  clearstream-server-domain:
+    description: Server URLs must point at a clearstream.com host.
+    severity: warn
+    given: "$.servers[*].url"
+    then:
+      function: pattern
+      functionOptions:
+        match: "clearstream\\.com"
+
+  clearstream-operation-tags:
+    description: Every operation must declare at least one tag.
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: tags
+      function: schema
+      functionOptions:
+        schema:
+          type: array
+          minItems: 1
+
+  clearstream-operation-summary:
+    description: Every operation must include a short summary.
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: summary
+      function: truthy
+
+  clearstream-operation-id:
+    description: Every operation must declare a unique operationId.
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: operationId
+      function: truthy
+
+  clearstream-error-responses:
+    description: Mutating operations should declare 4xx error responses.
+    severity: warn
+    given: "$.paths[*][post,put,patch,delete].responses"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          anyOf:
+            - required: ["400"]
+            - required: ["401"]
+            - required: ["403"]
+            - required: ["404"]
+            - required: ["422"]
+
+  clearstream-bic-format:
+    description: Counterparty BIC parameters should be 8 or 11 character ISO 9362 BICs.
+    severity: warn
+    given: "$.paths[*][*].parameters[?(@.name && @.name.match(/bic/i))].schema"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          properties:
+            pattern:
+              type: string
+              enum:
+                - "^[A-Z0-9]{8}([A-Z0-9]{3})?$"
+
+  clearstream-isin-format:
+    description: ISIN parameters should be 12-character ISO 6166 identifiers.
+    severity: warn
+    given: "$.paths[*][*].parameters[?(@.name && @.name.match(/isin/i))].schema"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          properties:
+            pattern:
+              type: string
+              enum:
+                - "^[A-Z]{2}[A-Z0-9]{9}\\d$"

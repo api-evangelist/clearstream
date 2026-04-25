@@ -1,0 +1,117 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "clearstream": "https://www.clearstream.com/ns/",
+    "iso20022": "https://www.iso20022.org/standardsrepository/",
+    "iso15022": "https://www.iso20022.org/15022/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "fibo": "https://spec.edmcouncil.org/fibo/ontology/",
+
+    "SettlementInstruction": {
+      "@id": "clearstream:SettlementInstruction",
+      "@context": {
+        "messageId": "iso20022:MessageIdentification",
+        "messageType": "iso15022:MessageType",
+        "tradeDate": {
+          "@id": "iso20022:TradeDate",
+          "@type": "xsd:date"
+        },
+        "settlementDate": {
+          "@id": "iso20022:SettlementDate",
+          "@type": "xsd:date"
+        },
+        "isin": "fibo:ISIN",
+        "quantity": "iso20022:SettlementQuantity",
+        "amount": "iso20022:SettlementAmount",
+        "currency": "iso20022:SettlementCurrency",
+        "deliveryType": "clearstream:delivery_type",
+        "counterparty": "iso20022:Counterparty",
+        "safekeepingAccount": "clearstream:safekeeping_account"
+      }
+    },
+
+    "CustodyAccount": {
+      "@id": "clearstream:CustodyAccount",
+      "@context": {
+        "accountNumber": "clearstream:account_number",
+        "accountName": "schema:name",
+        "ownerBic": "iso20022:BIC",
+        "openingDate": {
+          "@id": "dcterms:created",
+          "@type": "xsd:date"
+        },
+        "marketAccess": {
+          "@id": "clearstream:market_access",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "CorporateAction": {
+      "@id": "clearstream:CorporateAction",
+      "@context": {
+        "eventId": "iso20022:CorporateActionEventIdentification",
+        "eventType": "iso20022:EventType",
+        "isin": "fibo:ISIN",
+        "recordDate": {
+          "@id": "iso20022:RecordDate",
+          "@type": "xsd:date"
+        },
+        "exDate": {
+          "@id": "iso20022:ExDividendDate",
+          "@type": "xsd:date"
+        },
+        "paymentDate": {
+          "@id": "iso20022:PaymentDate",
+          "@type": "xsd:date"
+        },
+        "mandatoryVoluntary": "iso20022:MandatoryVoluntaryEventType"
+      }
+    },
+
+    "CollateralPosition": {
+      "@id": "clearstream:CollateralPosition",
+      "@context": {
+        "exposureId": "iso20022:ExposureIdentification",
+        "exposureType": "iso20022:ExposureType",
+        "collateralGiver": "iso20022:CollateralGiver",
+        "collateralTaker": "iso20022:CollateralTaker",
+        "marketValue": "iso20022:MarketValue",
+        "haircut": "clearstream:haircut",
+        "currency": "iso20022:Currency"
+      }
+    },
+
+    "FundOrder": {
+      "@id": "clearstream:FundOrder",
+      "@context": {
+        "orderId": "iso20022:OrderReference",
+        "orderType": "iso20022:OrderType",
+        "isin": "fibo:ISIN",
+        "tradeDate": {
+          "@id": "iso20022:TradeDate",
+          "@type": "xsd:date"
+        },
+        "amount": "iso20022:NetAmount",
+        "units": "iso20022:UnitsNumber",
+        "investor": "iso20022:Investor"
+      }
+    },
+
+    "Statement": {
+      "@id": "clearstream:Statement",
+      "@context": {
+        "statementId": "iso20022:StatementIdentification",
+        "statementType": "iso20022:StatementType",
+        "asOfDate": {
+          "@id": "iso20022:StatementDate",
+          "@type": "xsd:date"
+        },
+        "account": "clearstream:account_number",
+        "format": "schema:encodingFormat"
+      }
+    }
+  }
+}
