@@ -8,7 +8,7 @@ access: 3rd-Party
 position: Consumer
 specificationVersion: '0.19'
 image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-x-type: company
+kind: company
 tags:
   - Capital Markets
   - Collateral Management
@@ -154,9 +154,9 @@ common:
     url: https://www.clearstream.com/clearstream-en/keydocuments-1-/icsd-1-/connectivity-manuals
   - type: Support
     url: https://www.clearstream.com/clearstream-en/contact
-  - type: Terms of Service
+  - type: TermsOfService
     url: https://www.clearstream.com/clearstream-en/legal-and-regulatory
-  - type: JSON-LD
+  - type: JSONLD
     url: json-ld/clearstream-context.jsonld
   - type: Spectral
     url: rules/clearstream-rules.yml
