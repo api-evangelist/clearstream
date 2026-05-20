@@ -146,6 +146,10 @@ apis:
       across repo, securities lending, and OTC derivatives exposures. Clients
       interact via SWIFT colr.* messages and Xact File Transfer feeds.
 common:
+  - type: GitHubOrganization
+    url: https://github.com/clearstream
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/clearstream
   - type: Website
     url: https://www.clearstream.com/
   - type: Portal
