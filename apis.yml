@@ -7,7 +7,7 @@ type: Index
 access: 3rd-Party
 position: Consumer
 specificationVersion: '0.19'
-image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 kind: company
 tags:
   - Capital Markets
@@ -40,7 +40,7 @@ apis:
       - ISO 20022
       - Settlement
       - SWIFT
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://www.clearstream.com/clearstream-en/securities-services/connectivity-1-/xact-via-swift--1276378
     properties:
       - url: https://www.clearstream.com/clearstream-en/securities-services/connectivity-1-/xact-via-swift--1276378
@@ -62,7 +62,7 @@ apis:
       - ISO 20022
       - SWIFTNet FileAct
       - Settlement
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://www.clearstream.com/clearstream-en/securities-services/connectivity-1-/xact-file-transfer
     properties:
       - url: https://www.clearstream.com/clearstream-en/securities-services/connectivity-1-/xact-file-transfer
@@ -82,7 +82,7 @@ apis:
       - Custody
       - Settlement
       - Web Portal
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://www.clearstream.com/clearstream-en/securities-services/connectivity-1-/clearstreamxact
     properties:
       - url: https://www.clearstream.com/clearstream-en/securities-services/connectivity-1-/clearstreamxact
@@ -101,7 +101,7 @@ apis:
       - Domestic Settlement
       - Germany
       - SWIFT
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://www.clearstream.com/clearstream-en/securities-services/connectivity-1-/cascade
     properties:
       - url: https://www.clearstream.com/clearstream-en/securities-services/connectivity-1-/cascade
@@ -119,7 +119,7 @@ apis:
       - Funds
       - ISO 20022
       - Order Routing
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://www.clearstream.com/clearstream-en/securities-services/funds-services-1-/vestima
     properties:
       - url: https://www.clearstream.com/clearstream-en/securities-services/funds-services-1-/vestima
@@ -135,7 +135,7 @@ apis:
       - Collateral Management
       - Margin
       - Triparty
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://www.clearstream.com/clearstream-en/securities-services/collateral-management
     properties:
       - url: https://www.clearstream.com/clearstream-en/securities-services/collateral-management
