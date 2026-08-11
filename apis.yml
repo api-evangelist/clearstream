@@ -178,8 +178,6 @@ common:
     url: json-ld/clearstream-context.jsonld
   - type: Spectral
     url: rules/clearstream-rules.yml
-  - type: X-NaftikoCapabilities
-    url: capabilities/clearstream-post-trade.yaml
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
