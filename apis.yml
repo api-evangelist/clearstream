@@ -25,6 +25,17 @@ tags:
   - Capital Markets
   - Collateral Management
   - Custody
+  - Financial-Services
+  - ISO 15022
+  - ISO 20022
+  - Post-Trade Infrastructure
+  - Securities
+  - Settlement
+  - Swift
+tags_raw:
+  - Capital Markets
+  - Collateral Management
+  - Custody
   - Financial Services
   - ISO 15022
   - ISO 20022
@@ -47,6 +58,12 @@ apis:
   - aid: clearstream:xact-via-swift
     name: Clearstream Xact via SWIFT
     tags:
+      - Custody
+      - ISO 15022
+      - ISO 20022
+      - Settlement
+      - Swift
+    tags_raw:
       - Custody
       - ISO 15022
       - ISO 20022
@@ -109,6 +126,11 @@ apis:
   - aid: clearstream:cascade
     name: Clearstream CASCADE (CSD)
     tags:
+      - CSD
+      - Domestic Settlement
+      - Germany
+      - Swift
+    tags_raw:
       - CSD
       - Domestic Settlement
       - Germany
