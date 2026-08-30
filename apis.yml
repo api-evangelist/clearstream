@@ -42,7 +42,7 @@ tags:
   - Post-Trade Infrastructure
   - Securities
   - Settlement
-  - Swift
+  - SWIFT
 tags_raw:
   - Capital Markets
   - Collateral Management
@@ -73,7 +73,7 @@ apis:
       - ISO 15022
       - ISO 20022
       - Settlement
-      - Swift
+      - SWIFT
     tags_raw:
       - Custody
       - ISO 15022
@@ -140,7 +140,7 @@ apis:
       - CSD
       - Domestic Settlement
       - Germany
-      - Swift
+      - SWIFT
     tags_raw:
       - CSD
       - Domestic Settlement
