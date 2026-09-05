@@ -1,0 +1,85 @@
+specification: API Commons Sandbox
+specificationVersion: '0.1'
+provider: Clearstream
+providerId: clearstream
+generated: '2026-09-05'
+modified: '2026-09-05'
+method: probed
+source: >-
+  Clearstream API Developer Guide (August 2025) footnote 1 and the Example Code chapter, which
+  name the pre-production environment; confirmed live on 2026-09-05 —
+  https://api-t2s-test.clearstream.com/ returned 200 with the "Welcome to the Clearstream API
+  Platform" landing page while the production host was in maintenance.
+description: >-
+  Clearstream runs a real, separately addressed pre-production environment (referred to as
+  pre-production / UAT / OCCT) that mirrors the production API platform, plus a free synthetic
+  Playground API intended as the first thing a new integrator calls. There are no public test
+  credentials: sandbox access is still granted through the Xact Organisation Unit, so a
+  prospective client cannot try the API before becoming a client.
+environments:
+  - name: Production
+    api_base: https://api.clearstream.com
+    portal: https://xact.clearstream.com
+    catalogue: https://console.developer.deutsche-boerse.com
+    status_observed: 503 Scheduled Maintenance on every path, 2026-09-05
+  - name: Pre-production / UAT / OCCT
+    api_base: https://api-t2s-test.clearstream.com
+    portal: https://xact-t2s-test.clearstream.com
+    catalogue: https://console.cstest.dbpapi.com
+    status_observed: 200 landing page; protected prefixes answered 403 with scope details, 2026-09-05
+    note: >-
+      The staging deployment of the Deutsche Börse Digital Business Platform at
+      console.cstest.dbpapi.com did not resolve from the public internet on 2026-09-05 (curl exit 6,
+      no HTTP status), so it is likely reachable only from client networks.
+test_api:
+  name: Clearstream API Playground
+  scope: ocapi-playground-v1
+  price: free of charge
+  purpose: >-
+    "offers a variety of synthetic endpoints" for connectivity testing. Clearstream's onboarding
+    guidance is that at least the Playground resource should be requested on initial production
+    onboarding.
+  endpoints:
+    - method: GET
+      path: /playground/v1/info
+      response_example: '{ "info_str": "Welcome to OCAPI Playground API ... ", "version": "1.221101XP.12" }'
+    - method: GET
+      path: /playground/v1/echo
+      query: value
+      example: /playground/v1/echo?value=Hello%20World
+  openapi: >-
+    Published on the Digital Business Platform under the API's Technical Documentation tab
+    (https://console.developer.deutsche-boerse.com/apis/9993a0e6-d53a-4bf9-94d4-73e4da49f6dd/technical-documentation);
+    the catalogue API returned 401 to an anonymous request on 2026-09-05, so the spec could not be retrieved.
+test_credentials:
+  public_test_keys: false
+  note: >-
+    None published, and none can be. Credentials are an X.509 client certificate plus a password
+    issued to an "API Consumer" technical user created inside a client's Xact Organisation Unit;
+    the certificate CN must match the Xact user id in the token subject.
+  certificate_validity: 2 years
+tooling:
+  - name: Clearstream API Support Page
+    url: https://api.clearstream.com/ui/support.html
+    observed_url: https://api-t2s-test.clearstream.com/ui/support.html
+    observed_status: 200
+    description: >-
+      A first-party browser test client: fill in token server, token endpoint, consumer id,
+      password and scopes, get a token, then issue an arbitrary GET/POST/PUT/DELETE/PATCH/HEAD
+      against any API endpoint and read back the response code, headers and body. Requires the
+      SSL client certificate to be imported into the browser. Version string observed
+      2026-09-05: v4.2606XP_POST.5.
+  - name: PEM / P12 credential converter
+    url: https://api.clearstream.com/ui/converter.html
+    description: Converts the two PEM files issued by Xact into P12 for browser, OS and Java truststore import.
+  - name: Server and client CA bundles
+    url: https://api.clearstream.com/client-cert-cacerts.pem
+    description: >-
+      Client CA chain download. The server chain roots at DigiCert Global Root G2 and must be added
+      to the caller's truststore; certificate pinning is explicitly unsupported.
+time_simulation: none published
+fixtures: >-
+  The Playground endpoints are synthetic; no fixture, trigger or test-clock tooling is documented.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

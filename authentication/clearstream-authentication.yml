@@ -1,0 +1,126 @@
+specification: API Commons Authentication
+specificationVersion: '0.1'
+provider: Clearstream
+providerId: clearstream
+generated: '2026-09-05'
+modified: '2026-09-05'
+method: searched
+source: >-
+  Clearstream API Developer Guide (Clearstream Banking S.A., August 2025) —
+  https://www.clearstream.com/caas/v1/media/2934048/data/3fa3fec668d8dd198e9bed4df879b26b/api-developer-guide.pdf
+  (HTTP 200, application/pdf), plus live unauthenticated probes of the Clearstream API
+  Platform pre-production host https://api-t2s-test.clearstream.com (HTTP 403 JSON envelopes
+  naming the required scopes) on 2026-09-05.
+docs:
+  - https://www.clearstream.com/clearstream-en/res-library/connectivity/clearstream-api-services-2916788
+  - https://www.clearstream.com/caas/v1/media/2934048/data/3fa3fec668d8dd198e9bed4df879b26b/api-developer-guide.pdf
+  - https://docs.developer.deutsche-boerse.com/docs/consumer/mTLS-consumer
+description: >-
+  Authentication profile for the Clearstream API Platform (api.clearstream.com). Clearstream
+  runs an OAuth 2.0 resource-owner password-credentials flow that it has hardened by requiring
+  a mutual-TLS connection on every call — both to the token endpoint and to every resource
+  endpoint. Credentials are not self-service: an API consumer is a technical user created
+  inside the Xact Web Portal, and the X.509 client certificate and key are generated in the
+  browser during that user's creation. This profile is read from Clearstream's own published
+  developer guide and confirmed against live 403 responses; no OpenAPI securitySchemes block
+  exists because Clearstream publishes its OpenAPI only inside the registration-gated Deutsche
+  Börse Digital Business Platform catalogue.
+schemes:
+  - id: oauth2-password-mtls
+    type: oauth2
+    flow: password
+    label: OAuth 2.0 resource owner password credentials, over mutual TLS
+    token_endpoint: https://api.clearstream.com/authmanager/oauth2/access_token
+    token_endpoint_test: https://api-t2s-test.clearstream.com/authmanager/oauth2/access_token
+    grant_type: password
+    request_encoding: application/x-www-form-urlencoded
+    request_parameters:
+      - name: grant_type
+        value: password
+        required: true
+      - name: scope
+        required: true
+        note: >-
+          Space separated. The literal scope `allow` is mandatory on every request and must be
+          accompanied by at least one API-specific scope. Requesting an invalid scope returns a
+          400 whose body lists the scopes valid for that consumer.
+      - name: username
+        required: true
+        note: The Xact API Consumer user id, e.g. the form a00012345_0012345.
+      - name: password
+        required: true
+        note: The API consumer login password set during Xact user creation.
+    client_authentication: none
+    client_authentication_note: >-
+      No OAuth 2.0 client_id / client_secret basic-auth header is required — Clearstream
+      identifies the client from the mutual-TLS certificate plus the consumer password sent as
+      form data. The guide states that a basic-auth header set to any placeholder value is
+      accepted and ignored, for libraries that insist on sending one.
+    response:
+      access_token: JWT bearer token
+      refresh_token: issued
+      token_type: Bearer
+      expires_in: 3599
+      scope: echoed back as the granted scope string
+    resource_usage: 'Authorization: Bearer ${ACCESS_TOKEN}'
+  - id: mutual-tls
+    type: mutualTLS
+    label: Mandatory mutual TLS (X.509 client certificate)
+    scope_of_application: >-
+      Every call to the Clearstream API Platform, including the OAuth token endpoint. Running
+      without a proper CA chain or truststore ("insecure mode") is explicitly unsupported.
+    client_certificate:
+      issued_by: Clearstream, during Xact Web Portal API Consumer creation
+      delivery: >-
+        Two PEM files are generated and downloaded in the browser — a signing certificate/key
+        pair and an SSL (TLS) certificate/key pair — named ocapi-{USERID}-{TYPE}.pem. The SSL
+        file is the one used for the mutual-TLS connection.
+      validity: 2 years; expiry visible to Xact OU administrators in the credential details screen
+      binding: >-
+        The client certificate Common Name (CN) must match the Xact user id carried in the
+        OAuth 2.0 token subject. Observed verbatim in the live 403 body from
+        https://api-t2s-test.clearstream.com/playground/v1/info on 2026-09-05.
+    server_trust:
+      root_ca: DigiCert Global Root G2
+      note: >-
+        Clients must add the server CA chain to their truststore. Certificate pinning is
+        explicitly unsupported, and Clearstream reserves the right to rotate API server
+        certificates with no prior announcement.
+    client_ca_bundle: https://api.clearstream.com/client-cert-cacerts.pem
+authorization:
+  model: >-
+    Two layers. Coarse-grained access is the set of Clearstream API resources granted to the
+    Xact Organisation Unit and then to the individual API Consumer user; that grant is what
+    determines which OAuth scopes the token server will issue. Fine-grained access is a
+    per-API role model inside Xact — for example most User Management (SCIM2) calls additionally
+    require the SCIM Admin or SCIM Read-Only role on top of the Xact Web Portal User Management
+    API role.
+  onboarding_channel: >-
+    Existing Xact clients enable the service by sending an MT599 SWIFT message to
+    CEDELULLXXX (attn. PRGConnect) naming the API resources to link to their Organisation Unit.
+    Prospects contact the Clearstream Connectivity Helpdesk at connect@clearstream.com.
+  self_service: false
+errors:
+  invalid_scope: 400 — response body enumerates the scopes valid for the consumer
+  wrong_parameter: 403 Forbidden from the authorisation server; cause visible only in the Xact OU audit log
+  wrong_host: >-
+    OAuth requests sent to https://xact.clearstream.com are rejected; the token endpoint is on
+    https://api.clearstream.com (or the matching test host).
+observations:
+  - fetched: '2026-09-05'
+    url: https://api-t2s-test.clearstream.com/playground/v1/info
+    http_status: 403
+    content_type: application/json; charset=utf-8
+    note: >-
+      Unauthenticated probe. Body names the mandatory `allow` scope, the API scope
+      `ocapi-playground-v1`, and the certificate-CN-to-token-subject binding rule.
+  - fetched: '2026-09-05'
+    url: https://api.clearstream.com/
+    http_status: 503
+    note: >-
+      The production API host was serving a "Scheduled Maintenance" page for every path at the
+      time of this pass, so production probes could not be completed; the pre-production host
+      api-t2s-test.clearstream.com was up and answered.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

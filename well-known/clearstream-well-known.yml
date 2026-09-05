@@ -1,0 +1,132 @@
+specification: API Commons Well-Known
+specificationVersion: '0.1'
+provider: Clearstream
+providerId: clearstream
+generated: '2026-09-05'
+modified: '2026-09-05'
+method: probed
+source: >-
+  Direct HTTP probes on 2026-09-05 of every host this record knows — the registrable domain and
+  www, the production API host, the pre-production API host, and the Xact portal host.
+description: >-
+  Well-known discovery probe for Clearstream. Result: nothing is served. No host under
+  clearstream.com publishes security.txt, an OpenID/OAuth discovery document, an api-catalog or
+  an ai-plugin manifest. The API hosts answer an unknown path with the platform's own HTML
+  landing page (200) or, during the maintenance window observed on this pass, a 503 HTML page —
+  neither is a discovery document, and both are recorded as misses. This file documents an
+  absence; no WellKnown or SecurityTxt pointer is emitted from it.
+hosts:
+  - host: www.clearstream.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 404
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+        file: null
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+        file: null
+      - path: /.well-known/api-catalog
+        status: 404
+        file: null
+      - path: /.well-known/ai-plugin.json
+        status: 404
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 404
+        file: null
+      - path: /.well-known/agent.json
+        status: 404
+        file: null
+      - path: /llms.txt
+        status: 404
+        file: null
+      - path: /robots.txt
+        status: 404
+        file: null
+  - host: clearstream.com
+    documents:
+      - path: /
+        status: 200
+        file: null
+        note: Redirects to https://www.clearstream.com/clearstream-en; probes were run against the www host.
+  - host: api.clearstream.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 503
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 503
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: 503
+        file: null
+      - path: /.well-known/oauth-protected-resource
+        status: 503
+        file: null
+      - path: /.well-known/api-catalog
+        status: 503
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 503
+        file: null
+      - path: /.well-known/agent.json
+        status: 503
+        file: null
+    note: >-
+      The entire host was serving a "Scheduled Maintenance" HTML page with a 503 for every path
+      at probe time, so these are inconclusive rather than confirmed absences. The equivalent
+      paths on the pre-production twin all returned the catch-all landing page.
+  - host: api-t2s-test.clearstream.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        file: null
+        note: HTML platform landing page (catch-all), not a document — treated as a miss.
+      - path: /.well-known/openid-configuration
+        status: 200
+        file: null
+        note: HTML catch-all, not a discovery document — treated as a miss.
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        file: null
+        note: HTML catch-all — miss.
+      - path: /.well-known/oauth-protected-resource
+        status: 200
+        file: null
+        note: HTML catch-all — miss.
+      - path: /.well-known/api-catalog
+        status: 200
+        file: null
+        note: HTML catch-all — miss.
+      - path: /.well-known/agent-card.json
+        status: 200
+        file: null
+        note: HTML catch-all — miss. No AgentCard shape in the body.
+      - path: /.well-known/agent.json
+        status: 200
+        file: null
+        note: HTML catch-all — miss.
+  - host: xact.clearstream.com
+    documents:
+      - path: /
+        status: 503
+        file: null
+        note: Xact portal host, in the same maintenance window as api.clearstream.com.
+related_hosts_not_clearstream:
+  - host: www.deutsche-boerse.com
+    path: /.well-known/security.txt
+    status: 200
+    note: >-
+      The Deutsche Börse Group parent serves a security.txt naming
+      vulnerabilitydisclosure@deutsche-boerse.com and a VDP policy page. It is recorded here as
+      context only. It is NOT counted for Clearstream: the document is served from the parent's
+      domain, its Expires field lapsed on 2025-04-22, and the VDP policy page does not name
+      Clearstream or any group subsidiary in its scope.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

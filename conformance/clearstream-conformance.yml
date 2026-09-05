@@ -1,0 +1,132 @@
+specification: API Commons Conformance
+specificationVersion: '0.1'
+provider: Clearstream
+providerId: clearstream
+generated: '2026-09-05'
+modified: '2026-09-05'
+method: searched
+source: >-
+  Clearstream API Developer Guide (August 2025), the Clearstream API services page
+  (https://www.clearstream.com/clearstream-en/res-library/connectivity/clearstream-api-services-2916788,
+  HTTP 200), Clearstream SWIFT MyStandards page
+  (https://www.clearstream.com/clearstream-en/res-library/connectivity/swift-mystandards-1277070,
+  HTTP 200), and live 403 scope disclosures from https://api-t2s-test.clearstream.com on 2026-09-05.
+description: >-
+  Standards conformance for Clearstream. Two distinct layers matter here and they are usually
+  conflated: the REST API Platform layer (OAuth 2.0, mutual TLS, SCIM 2.0) and the post-trade
+  messaging layer (ISO 15022 MT and ISO 20022 MX over SWIFTNet, published to SWIFT MyStandards),
+  which is where nearly all of Clearstream's actual traffic lives. Only claims backed by a
+  fetched URL or a live probe are marked conforms true.
+conformance:
+  - id: oauth2
+    name: OAuth 2.0 (RFC 6749)
+    conforms: true
+    profile: resource owner password credentials grant
+    evidence: https://www.clearstream.com/caas/v1/media/2934048/data/3fa3fec668d8dd198e9bed4df879b26b/api-developer-guide.pdf
+    note: >-
+      Implemented and documented, but hardened away from the plain spec: mutual TLS is mandatory
+      and OAuth client authentication is deliberately not used. The password grant is deprecated
+      in OAuth 2.1; Clearstream compensates with the certificate binding rather than moving off it.
+  - id: oidc
+    name: OpenID Connect
+    conforms: false
+    evidence: >-
+      https://api.clearstream.com/.well-known/openid-configuration (503, host in maintenance) and
+      https://api-t2s-test.clearstream.com/.well-known/openid-configuration (200 but the platform
+      landing-page catch-all, not a discovery document) — probed 2026-09-05.
+  - id: oauth-server-metadata
+    name: OAuth 2.0 Authorization Server Metadata (RFC 8414)
+    conforms: false
+    evidence: >-
+      /.well-known/oauth-authorization-server returns the host catch-all page on
+      api-t2s-test.clearstream.com and 503 on api.clearstream.com; the token endpoint is
+      documented only in a PDF.
+  - id: mutual-tls
+    name: Mutual TLS client authentication
+    conforms: true
+    evidence: >-
+      https://docs.developer.deutsche-boerse.com/docs/consumer/mTLS-consumer (200) and the live
+      403 body naming the certificate-CN-to-token-subject binding.
+    note: >-
+      Transport-level mTLS with a CN-to-token-subject binding. Not RFC 8705 certificate-bound
+      access tokens — Clearstream enforces the binding in its gateway, not via cnf/x5t#S256 claims.
+  - id: rfc9457
+    name: Problem Details for HTTP APIs (RFC 9457)
+    conforms: false
+    evidence: >-
+      Observed error envelope is a bespoke { status, error, required_scopes, message } object
+      served as application/json, not application/problem+json.
+  - id: pagination
+    name: Documented pagination convention
+    conforms: false
+    evidence: No pagination convention published outside the gated catalogue.
+  - id: idempotency
+    name: Documented idempotency / replay protection
+    conforms: false
+    evidence: No idempotency key or retry-safety statement in any published Clearstream API document.
+domain_standards:
+  - id: scim
+    name: SCIM 2.0 — System for Cross-domain Identity Management (RFC 7643 / RFC 7644)
+    conforms: true
+    role: identity provisioning for the Xact Web Portal
+    evidence: https://api-t2s-test.clearstream.com/scim2
+    evidence_status: 403
+    evidence_detail: >-
+      The platform itself names the surface and its scope: required_scopes.at_least_one_of
+      ["scim2-ext-v1"] on the /scim2 prefix. Clearstream's own API services page describes it as
+      "User Management (SCIM2), an industry standard API for user provisioning, maintenance, and
+      monitoring" and states it is the FIRST API available on the platform.
+    note: >-
+      The scope name carries an `-ext` marker, which is how SCIM implementations usually flag
+      schema extensions beyond the core urn:ietf:params:scim:schemas:core:2.0 set. The actual
+      schema URNs could not be read — the resource requires a token and a client certificate.
+  - id: iso-20022
+    name: ISO 20022 financial messaging
+    conforms: true
+    role: settlement, custody, asset servicing and collateral messaging
+    evidence: https://www.clearstream.com/clearstream-en/res-library/connectivity/swift-mystandards-1277070
+    evidence_status: 200
+    evidence_detail: >-
+      Clearstream publishes its message specifications to SWIFT MyStandards and runs the ISO 20022
+      MX migration under the SWIFT CBPR+ programme; the connectivity library carries a dedicated
+      "Cross-border payments and reporting (CBPR+)" section
+      (https://www.clearstream.com/clearstream-en/res-library/connectivity/cross-border-payments-and-reporting-cbpr--4446956).
+    note: >-
+      This is the domain standard for the securities post-trade market and it is where Clearstream's
+      real contract lives. It is a message-set conformance, not an HTTP API conformance — which is
+      exactly why a REST-only reading of this company scores it as publishing nothing.
+  - id: iso-15022
+    name: ISO 15022 (SWIFT MT message set)
+    conforms: true
+    role: incumbent settlement/custody message set, being migrated to ISO 20022
+    evidence: https://www.clearstream.com/clearstream-en/res-library/connectivity/xact-via-swift--1276378
+    evidence_status: 200
+  - id: swiftnet-fileact
+    name: SWIFTNet FileAct
+    conforms: true
+    role: bulk file exchange for statements, corporate actions and reconciliation
+    evidence: https://www.clearstream.com/clearstream-en/res-library/connectivity/xact-file-transfer-1276390
+    evidence_status: 200
+  - id: t2s
+    name: TARGET2-Securities (T2S) directly connected party
+    conforms: true
+    role: pan-European settlement platform connectivity
+    evidence: https://www.clearstream.com/clearstream-en/res-library/connectivity/t2s-dcp-connectivity-1276612
+    evidence_status: 200
+    note: >-
+      The pre-production API host is named api-t2s-test.clearstream.com, which is consistent with
+      the T2S-aligned test environment naming.
+not_applicable:
+  - id: fhir
+    reason: not a healthcare provider
+  - id: odata
+    reason: no OData $metadata surface found
+  - id: json-api
+    reason: responses are plain JSON, no JSON:API media type
+  - id: fapi
+    reason: >-
+      FAPI profiles retail/open-banking consumer APIs; Clearstream's surface is institutional
+      post-trade behind mutual TLS and a bilateral client contract, not an open-banking API.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

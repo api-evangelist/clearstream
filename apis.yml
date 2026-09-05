@@ -25,192 +25,303 @@ accessModel:
   generated: '2026-07-22'
   method: derived
 created: '2024-01-15'
-modified: '2026-04-23'
+modified: '2026-09-05'
 type: Index
 access: 3rd-Party
-position: Consuming
+position: Producing
 specificationVersion: '0.23'
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/clearstream.png
 kind: company
 tags:
-  - Capital Markets
-  - Collateral Management
+- API Platform
+- Capital Markets
+- Collateral Management
+- Custody
+- Financial-Services
+- ISO 15022
+- ISO 20022
+- Mutual TLS
+- OAuth 2.0
+- Post-Trade
+- Post-Trade Infrastructure
+- SCIM
+- Securities
+- Settlement
+- Swift
+tags_raw:
+- Capital Markets
+- Collateral Management
+- Custody
+- Financial Services
+- ISO 15022
+- ISO 20022
+- Post-Trade Infrastructure
+- Securities
+- Settlement
+- SWIFT
+description: 'Clearstream Banking S.A. is the Deutsche Borse Group post-trade infrastructure business,
+  providing settlement, custody, collateral management and investment-fund order routing for international
+  securities. Its programmable surface has two layers. The incumbent layer is regulated post-trade messaging:
+  clients connect through ClearstreamXact (Xact Web Portal, Xact File Transfer over SWIFTNet FileAct,
+  and Xact via SWIFT FIN), CASCADE via SWIFT and MQ, Vestima for fund order routing and CmaX for triparty
+  collateral, exchanging ISO 15022 MT and ISO 20022 MX messages whose specifications Clearstream publishes
+  to SWIFT MyStandards, with migration to ISO 20022 driven by the SWIFT CBPR+ programme. The newer layer
+  is a genuine REST platform at api.clearstream.com, running an OAuth 2.0 password grant hardened by mandatory
+  mutual TLS, whose first published API is SCIM 2.0 user management for the Xact Web Portal; a free synthetic
+  Playground API and a CmaX collateral surface are live alongside it. The OpenAPI definitions are published
+  into the Deutsche Borse Digital Business Platform catalogue, which requires registration.'
+apis:
+- aid: clearstream:xact-via-swift
+  name: Clearstream Xact via SWIFT
+  tags:
   - Custody
-  - Financial-Services
   - ISO 15022
   - ISO 20022
-  - Post-Trade Infrastructure
-  - Securities
   - Settlement
   - Swift
-tags_raw:
-  - Capital Markets
-  - Collateral Management
+  tags_raw:
   - Custody
-  - Financial Services
   - ISO 15022
   - ISO 20022
-  - Post-Trade Infrastructure
-  - Securities
   - Settlement
   - SWIFT
-description: >-
-  Clearstream is a leading provider of post-trade infrastructure services for
-  international securities transactions. They offer settlement, custody, and
-  collateral management services for bonds, equities, and investment funds.
-  The Clearstream developer surface is built on regulated post-trade messaging
-  rather than a public REST API. Clients connect through ClearstreamXact
-  (Web Portal, File Transfer via SWIFTNet FileAct, and Xact via SWIFT FIN),
-  CASCADE via SWIFT and MQ, the CreationOnline / CreationDirect channels,
-  Vestima for fund order routing, and the CmaX triparty collateral platform.
-  Messages follow ISO 15022 and ISO 20022 standards, with ongoing migration
-  toward ISO 20022 driven by the SWIFT CBPR+ programme.
-apis:
-  - aid: clearstream:xact-via-swift
-    name: Clearstream Xact via SWIFT
-    tags:
-      - Custody
-      - ISO 15022
-      - ISO 20022
-      - Settlement
-      - Swift
-    tags_raw:
-      - Custody
-      - ISO 15022
-      - ISO 20022
-      - Settlement
-      - SWIFT
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://www.clearstream.com/clearstream-en/securities-services/connectivity-1-/xact-via-swift--1276378
-    properties:
-      - url: https://www.clearstream.com/clearstream-en/securities-services/connectivity-1-/xact-via-swift--1276378
-        type: Documentation
-      - url: https://www.clearstream.com/clearstream-en/securities-services/connectivity-1-/xact-via-swift-user-guides-1289256
-        type: User Guides
-      - url: https://www.clearstream.com/clearstream-en/securities-services/connectivity-1-/swift-mystandards-1277070
-        type: SWIFT MyStandards
-    description: >-
-      Xact via SWIFT delivers settlement, custody, asset servicing and
-      reporting messages over the SWIFTNet FIN network. The interface uses
-      ISO 15022 MT messages today and is being migrated to ISO 20022 MX
-      messages in line with the SWIFT CBPR+ schedule. Message specifications
-      are published to SWIFT MyStandards.
-  - aid: clearstream:xact-file-transfer
-    name: Clearstream Xact File Transfer
-    tags:
-      - File Transfer
-      - ISO 20022
-      - SWIFTNet FileAct
-      - Settlement
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://www.clearstream.com/clearstream-en/securities-services/connectivity-1-/xact-file-transfer
-    properties:
-      - url: https://www.clearstream.com/clearstream-en/securities-services/connectivity-1-/xact-file-transfer
-        type: Documentation
-      - url: https://www.clearstream.com/clearstream-en/keydocuments-1-/icsd-1-/connectivity-manuals
-        type: Connectivity Manuals
-    description: >-
-      Xact File Transfer offers bulk and report-style exchange of settlement,
-      custody, and collateral messages over SWIFTNet FileAct. Files may be
-      delivered in ISO 15022, ISO 20022, PDF, XML or XLS formats and are used
-      for high-volume corporate-action notifications, statements, and
-      bilateral reconciliation.
-  - aid: clearstream:xact-web-portal
-    name: Clearstream Xact Web Portal
-    tags:
-      - Asset Servicing
-      - Custody
-      - Settlement
-      - Web Portal
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://www.clearstream.com/clearstream-en/securities-services/connectivity-1-/clearstreamxact
-    properties:
-      - url: https://www.clearstream.com/clearstream-en/securities-services/connectivity-1-/clearstreamxact
-        type: Documentation
-      - url: https://www.clearstream.com/clearstream-en/securities-services/connectivity-1-/clearstreamxact/testing
-        type: Testing
-    description: >-
-      Xact Web Portal is the browser-based interface to ClearstreamXact for
-      instructing settlement, custody and collateral activity, monitoring
-      status, and reviewing reports. It complements the SWIFT and FileAct
-      programmatic channels with a manual / four-eyes operator surface.
-  - aid: clearstream:cascade
-    name: Clearstream CASCADE (CSD)
-    tags:
-      - CSD
-      - Domestic Settlement
-      - Germany
-      - Swift
-    tags_raw:
-      - CSD
-      - Domestic Settlement
-      - Germany
-      - SWIFT
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://www.clearstream.com/clearstream-en/securities-services/connectivity-1-/cascade
-    properties:
-      - url: https://www.clearstream.com/clearstream-en/securities-services/connectivity-1-/cascade
-        type: Documentation
-      - url: https://www.clearstream.com/clearstream-en/securities-services/connectivity-1-/cascade/cascade-via-swift
-        type: CASCADE via SWIFT
-    description: >-
-      CASCADE is the German central securities depository (CSD) settlement
-      platform. CASCADE is reachable via SWIFT FIN/FileAct messages and via
-      MQ-based host-to-host connectivity for instructing domestic and
-      cross-border settlement, corporate actions, and tax services.
-  - aid: clearstream:vestima
-    name: Clearstream Vestima
-    tags:
-      - Funds
-      - ISO 20022
-      - Order Routing
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://www.clearstream.com/clearstream-en/securities-services/funds-services-1-/vestima
-    properties:
-      - url: https://www.clearstream.com/clearstream-en/securities-services/funds-services-1-/vestima
-        type: Documentation
-    description: >-
-      Vestima is Clearstream's investment fund processing platform. It routes
-      subscription, redemption, switch and transfer orders for mutual funds,
-      ETFs, hedge funds and alternatives, and integrates with SWIFT, FIX, and
-      proprietary file transfer for both retail and institutional flows.
-  - aid: clearstream:cmax
-    name: Clearstream CmaX (Triparty Collateral)
-    tags:
-      - Collateral Management
-      - Margin
-      - Triparty
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://www.clearstream.com/clearstream-en/securities-services/collateral-management
-    properties:
-      - url: https://www.clearstream.com/clearstream-en/securities-services/collateral-management
-        type: Documentation
-    description: >-
-      CmaX is Clearstream's triparty collateral management platform. It
-      automates collateral allocation, optimisation, margining and substitution
-      across repo, securities lending, and OTC derivatives exposures. Clients
-      interact via SWIFT colr.* messages and Xact File Transfer feeds.
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.clearstream.com/clearstream-en/res-library/connectivity/xact-via-swift--1276378
+  properties:
+  - url: https://www.clearstream.com/clearstream-en/res-library/connectivity/xact-via-swift--1276378
+    type: Documentation
+  - url: https://www.clearstream.com/clearstream-en/res-library/connectivity/swift-mystandards-1277070
+    type: SWIFT MyStandards
+  - url: https://www.clearstream.com/clearstream-en/res-library/connectivity/cross-border-payments-and-reporting-cbpr--4446956
+    type: ISO 20022 CBPR+
+  description: Xact via SWIFT delivers settlement, custody, asset servicing and reporting messages over
+    the SWIFTNet FIN network. The interface uses ISO 15022 MT messages today and is being migrated to
+    ISO 20022 MX messages in line with the SWIFT CBPR+ schedule. Message specifications are published
+    to SWIFT MyStandards.
+- aid: clearstream:xact-file-transfer
+  name: Clearstream Xact File Transfer
+  tags:
+  - File Transfer
+  - ISO 20022
+  - SWIFTNet FileAct
+  - Settlement
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.clearstream.com/clearstream-en/res-library/connectivity/xact-file-transfer-1276390
+  properties:
+  - url: https://www.clearstream.com/clearstream-en/res-library/connectivity/xact-file-transfer-1276390
+    type: Documentation
+  - url: https://www.clearstream.com/clearstream-en/res-library/key-documents
+    type: Key Documents
+  description: Xact File Transfer offers bulk and report-style exchange of settlement, custody, and collateral
+    messages over SWIFTNet FileAct. Files may be delivered in ISO 15022, ISO 20022, PDF, XML or XLS formats
+    and are used for high-volume corporate-action notifications, statements, and bilateral reconciliation.
+- aid: clearstream:xact-web-portal
+  name: Clearstream Xact Web Portal
+  tags:
+  - Asset Servicing
+  - Custody
+  - Settlement
+  - Web Portal
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.clearstream.com/clearstream-en/res-library/connectivity/xact-web-portal-1275688
+  properties:
+  - url: https://www.clearstream.com/clearstream-en/res-library/connectivity/xact-web-portal-1275688
+    type: Documentation
+  - url: https://www.clearstream.com/clearstream-en/res-library/connectivity/clearstreamxact--1276204
+    type: ClearstreamXact
+  - url: https://www.clearstream.com/clearstream-en/res-library/connectivity/clearstream-api-services-2916788
+    type: APIReference
+  description: Xact Web Portal is the browser-based interface to ClearstreamXact for instructing settlement,
+    custody and collateral activity, monitoring status, and reviewing reports. It complements the SWIFT
+    and FileAct programmatic channels with a manual / four-eyes operator surface.
+- aid: clearstream:cascade
+  name: Clearstream CASCADE (CSD)
+  tags:
+  - CSD
+  - Domestic Settlement
+  - Germany
+  - Swift
+  tags_raw:
+  - CSD
+  - Domestic Settlement
+  - Germany
+  - SWIFT
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.clearstream.com/clearstream-en/res-library/connectivity/cascade-via-swift-1277130
+  properties:
+  - url: https://www.clearstream.com/clearstream-en/res-library/connectivity/cascade-via-swift-1277130
+    type: Documentation
+  - url: https://www.clearstream.com/clearstream-en/res-library/connectivity/cascade-online-1277122
+    type: CASCADE Online
+  - url: https://www.clearstream.com/clearstream-en/res-library/connectivity/cascade-via-mq-1275028
+    type: CASCADE via MQ
+  description: CASCADE is the German central securities depository (CSD) settlement platform. CASCADE
+    is reachable via SWIFT FIN/FileAct messages and via MQ-based host-to-host connectivity for instructing
+    domestic and cross-border settlement, corporate actions, and tax services.
+- aid: clearstream:vestima
+  name: Clearstream Vestima
+  tags:
+  - Funds
+  - ISO 20022
+  - Order Routing
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.clearstream.com/clearstream-en/res-library/connectivity/vestima-1277090
+  properties:
+  - url: https://www.clearstream.com/clearstream-en/res-library/connectivity/vestima-1277090
+    type: Documentation
+  description: Vestima is Clearstream's investment fund processing platform. It routes subscription, redemption,
+    switch and transfer orders for mutual funds, ETFs, hedge funds and alternatives, and integrates with
+    SWIFT, FIX, and proprietary file transfer for both retail and institutional flows.
+- aid: clearstream:cmax
+  name: Clearstream CmaX (Triparty Collateral)
+  tags:
+  - Collateral Management
+  - Margin
+  - Triparty
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.clearstream.com/clearstream-en/securities-services/collateral-lending-and-liquidity-solutions
+  properties:
+  - url: https://www.clearstream.com/clearstream-en/securities-services/collateral-lending-and-liquidity-solutions
+    type: Documentation
+  - url: https://www.clearstream.com/clearstream-en/res-library/connectivity/clearstream-api-services-2916788
+    type: Documentation
+  - url: scopes/clearstream-scopes.yml
+    type: OAuthScopes
+  description: 'CmaX is Clearstream''s triparty collateral management platform, automating collateral
+    allocation, optimisation, margining and substitution across repo, securities lending and OTC derivative
+    exposures. Clients instruct it over SWIFT colr.* messages and Xact File Transfer feeds, and it also
+    has a live REST surface on the Clearstream API Platform: an unauthenticated GET to https://api-t2s-test.clearstream.com/cmax/v1
+    returned HTTP 403 on 2026-09-05 naming the required OAuth scopes `allow` and `cmax-api`. The operations
+    behind that prefix are documented only in the registration-gated Deutsche Borse Digital Business Platform
+    catalogue.'
+  baseURL: https://api.clearstream.com
+- aid: clearstream:api-platform
+  name: Clearstream API Platform (Playground)
+  tags:
+  - API Platform
+  - Mutual TLS
+  - OAuth 2.0
+  - Sandbox
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.clearstream.com/clearstream-en/res-library/connectivity/clearstream-api-services-2916788
+  baseURL: https://api.clearstream.com
+  properties:
+  - url: https://www.clearstream.com/clearstream-en/res-library/connectivity/clearstream-api-services-2916788
+    type: Documentation
+  - url: https://www.clearstream.com/caas/v1/media/2934048/data/3fa3fec668d8dd198e9bed4df879b26b/api-developer-guide.pdf
+    type: GettingStarted
+  - url: https://console.developer.deutsche-boerse.com
+    type: DeveloperPortal
+  - url: authentication/clearstream-authentication.yml
+    type: Authentication
+  - url: scopes/clearstream-scopes.yml
+    type: OAuthScopes
+  - url: errors/clearstream-problem-types.yml
+    type: ErrorCatalog
+  - url: sandbox/clearstream-sandbox.yml
+    type: Sandbox
+  - url: mcp/clearstream-mcp.yml
+    type: X-MCPServerCandidate
+  description: 'The Clearstream API Platform is the REST tier of ClearstreamXact, reachable at https://api.clearstream.com
+    with a pre-production twin at https://api-t2s-test.clearstream.com. It issues JWT bearer tokens from
+    /authmanager/oauth2/access_token using an OAuth 2.0 resource-owner password grant that Clearstream
+    has hardened by requiring mutual TLS on every call, with the client certificate Common Name bound
+    to the Xact user id in the token subject. The free Clearstream API Playground (scope ocapi-playground-v1,
+    endpoints /playground/v1/info and /playground/v1/echo) is the recommended first integration and the
+    resource Clearstream asks new clients to request during onboarding. Access is not self-service: a
+    client enables the service for its Xact Organisation Unit by SWIFT MT599 message to CEDELULLXXX.'
+- aid: clearstream:scim2-user-management
+  name: Clearstream Xact User Management (SCIM 2.0)
+  tags:
+  - Identity
+  - Provisioning
+  - SCIM
+  - User Management
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.clearstream.com/clearstream-en/res-library/connectivity/clearstream-api-services-2916788
+  baseURL: https://api.clearstream.com
+  properties:
+  - url: https://www.clearstream.com/clearstream-en/res-library/connectivity/clearstream-api-services-2916788
+    type: Documentation
+  - url: https://www.clearstream.com/resource/blob/1311454/6a3813957a058c3138ba6fcdeb6dde71/xactusermanual-en-data.pdf
+    type: User Guides
+  - url: authentication/clearstream-authentication.yml
+    type: Authentication
+  - url: scopes/clearstream-scopes.yml
+    type: OAuthScopes
+  - url: conformance/clearstream-conformance.yml
+    type: Conformance
+  description: 'The first business API Clearstream published on its API platform: User Management (SCIM2),
+    an implementation of the SCIM 2.0 standard for provisioning, maintaining and monitoring Xact Web Portal
+    users without logging into the GUI. It is served from the /scim2 prefix on api.clearstream.com and
+    requires the OAuth scopes `allow` and `scim2-ext-v1` — confirmed by an unauthenticated GET to https://api-t2s-test.clearstream.com/scim2
+    that returned HTTP 403 naming both on 2026-09-05. Most calls additionally require the Xact SCIM Admin
+    or SCIM Read-Only role on top of the Xact Web Portal User Management API role. The OpenAPI definition
+    is published in the registration-gated Deutsche Borse Digital Business Platform catalogue.'
 common:
-  - type: DomainSecurity
-    url: security/clearstream-domain-security.yml
-  - type: GitHubOrganization
-    url: https://github.com/clearstream
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/clearstream
-  - type: Website
-    url: https://www.clearstream.com/
-  - type: Portal
-    url: https://www.clearstream.com/clearstream-en/products-and-services
-  - type: Documentation
-    url: https://www.clearstream.com/clearstream-en/keydocuments-1-/icsd-1-/connectivity-manuals
-  - type: Support
-    url: https://www.clearstream.com/clearstream-en/contact
-  - type: TermsOfService
-    url: https://www.clearstream.com/clearstream-en/legal-and-regulatory
-  - type: JSONLD
-    url: json-ld/clearstream-context.jsonld
-  - type: Spectral
-    url: rules/clearstream-rules.yml
+- type: DomainSecurity
+  url: security/clearstream-domain-security.yml
+- type: LinkedIn
+  url: https://www.linkedin.com/company/clearstream
+- type: Website
+  url: https://www.clearstream.com/
+- type: Connectivity Manuals
+  url: https://www.clearstream.com/clearstream-en/keydocuments-1-/icsd-1-/connectivity-manuals
+- type: JSONLD
+  url: json-ld/clearstream-context.jsonld
+- type: Spectral
+  url: rules/clearstream-rules.yml
+- type: Portal
+  url: https://www.clearstream.com/clearstream-en/securities-services
+- type: DeveloperPortal
+  url: https://console.developer.deutsche-boerse.com
+- type: Documentation
+  url: https://www.clearstream.com/clearstream-en/res-library/connectivity/clearstream-api-services-2916788
+- type: GettingStarted
+  url: https://www.clearstream.com/caas/v1/media/2934048/data/3fa3fec668d8dd198e9bed4df879b26b/api-developer-guide.pdf
+- type: Support
+  url: https://www.clearstream.com/clearstream-en/about-clearstream/office-locations
+- type: SignUp
+  url: https://www.clearstream.com/clearstream-en/about-clearstream/becoming-a-clearstream-client-1277376
+- type: Blog
+  url: https://www.clearstream.com/clearstream-en/newsroom
+- type: TermsOfService
+  url: https://docs.developer.deutsche-boerse.com/files/DBAG_API_Platform_Terms_of_Use.pdf
+- type: PrivacyPolicy
+  url: https://www.clearstream.com/clearstream-en/privacy-notice
+- type: StatusPage
+  url: https://www.clearstream.com/clearstream-en/res-library/operational-news
+- type: Authentication
+  url: authentication/clearstream-authentication.yml
+- type: OAuthScopes
+  url: scopes/clearstream-scopes.yml
+- type: ErrorCatalog
+  url: errors/clearstream-problem-types.yml
+- type: Conventions
+  url: conventions/clearstream-conventions.yml
+- type: Conformance
+  url: conformance/clearstream-conformance.yml
+- type: Lifecycle
+  url: lifecycle/clearstream-lifecycle.yml
+- type: Sandbox
+  url: sandbox/clearstream-sandbox.yml
+- type: ChangeLog
+  url: changelog/clearstream-changelog.yml
+- type: Plans
+  url: plans/clearstream-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/clearstream-rate-limits.yml
+- type: Packages
+  url: packages/clearstream-packages.yml
+- type: LLMsTxt
+  url: llms/clearstream-llms.txt
+- type: X-MCPServerCandidate
+  url: mcp/clearstream-mcp.yml
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
+x-enrichment:
+  date: '2026-09-05'
+  status: enriched
+  artifacts_added: 12
+  pass: local-v3

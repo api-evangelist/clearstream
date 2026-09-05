@@ -4,119 +4,57 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Clearstream
 providerId: clearstream
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
-tags:
-  - Capital Markets
-  - Collateral Management
-  - Custody
-  - Financial Services
-  - ISO 15022
-  - ISO 20022
-  - Post-Trade Infrastructure
-  - Securities
-  - Settlement
-  - SWIFT
-  - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Clearstream API surface. Captures per-tier
-  quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to
-  be replaced with published provider limits.
+generated: '2026-09-05'
+modified: '2026-09-05'
+method: searched
+source: >-
+  Clearstream API Developer Guide (August 2025), the Clearstream API services page (HTTP 200), and
+  the Deutsche Börse Group API Platform consumer documentation —
+  https://docs.developer.deutsche-boerse.com/docs/consumer/rate-limiting (HTTP 200, fetched
+  2026-09-05). This file replaces a 2026-05-04 bulk-sweep scaffold that invented per-tier limits
+  (10/100/1000 rpm and monthly quotas) and X-RateLimit-* headers; Clearstream publishes none of them.
+description: >-
+  Clearstream publishes no numeric rate limits for its API platform. The group platform it
+  publishes into documents the mechanism — a request-count limit and a concurrency (burst) limit
+  per time unit, with 429 Too Many Requests on exhaustion — but the actual numbers for any given
+  API are shown only inside that API's Detail Page in the Deutsche Börse Digital Business Platform
+  catalogue, which requires a registered account. An anonymous read of the catalogue API returned
+  401 on 2026-09-05. No rate-limit response headers are named in any published document.
+limit_count: 0
+limits: []
 headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+  documented: false
+  limit: null
+  remaining: null
+  reset: null
+  retryAfter: null
+  policy: null
+  note: >-
+    No X-RateLimit-*, RateLimit-* or Retry-After header is specified in Clearstream's or the group
+    platform's public documentation. An agent cannot read its remaining budget from a response.
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
-limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Clearstream Xact via SWIFT
-      - Clearstream Xact File Transfer
-      - Clearstream Xact Web Portal
-      - Clearstream CASCADE (CSD)
-      - Clearstream Vestima
-      - Clearstream CmaX (Triparty Collateral)
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Clearstream Xact via SWIFT
-      - Clearstream Xact File Transfer
-      - Clearstream Xact Web Portal
-      - Clearstream CASCADE (CSD)
-      - Clearstream Vestima
-      - Clearstream CmaX (Triparty Collateral)
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Clearstream Xact via SWIFT
-      - Clearstream Xact File Transfer
-      - Clearstream Xact Web Portal
-      - Clearstream CASCADE (CSD)
-      - Clearstream Vestima
-      - Clearstream CmaX (Triparty Collateral)
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Clearstream Xact via SWIFT
-      - Clearstream Xact File Transfer
-      - Clearstream Xact Web Portal
-      - Clearstream CASCADE (CSD)
-      - Clearstream Vestima
-      - Clearstream CmaX (Triparty Collateral)
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Clearstream Xact via SWIFT
-      - Clearstream Xact File Transfer
-      - Clearstream Xact Web Portal
-      - Clearstream CASCADE (CSD)
-      - Clearstream Vestima
-      - Clearstream CmaX (Triparty Collateral)
-policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+  source: https://docs.developer.deutsche-boerse.com/docs/consumer/rate-limiting
+mechanism_documented:
+  applies_to: APIs published on the Deutsche Börse Group API Platform with rate limiting enabled
+  dimensions:
+    - name: rate limit
+      description: "number of allowed API calls per time unit (the docs' example: 100 calls per second)"
+    - name: burst size
+      description: "maximum concurrent calls at any time (the docs' example: 50 concurrent calls)"
+    - name: time unit
+      description: per second, minute, hour or any interval the publisher chooses
+  subject: >-
+    The docs state the limit description names its subject — per consumer, per end-user, per
+    authenticated or unauthenticated session — and warn that publishers may also configure
+    undocumented API-level ceilings that apply under very high traffic.
+  visibility: API Detail Page → Access & Security section (requires a DBP account)
+  evidence:
+    - url: https://docs.developer.deutsche-boerse.com/docs/consumer/rate-limiting
+      status: 200
+    - url: https://developer.deutsche-boerse.com/console/api/v2/apis
+      status: 401
+      note: Anonymous read of the catalogue API — registration required, so per-API limits are not public.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

@@ -1,0 +1,92 @@
+specification: API Commons Lifecycle
+specificationVersion: '0.1'
+provider: Clearstream
+providerId: clearstream
+generated: '2026-09-05'
+modified: '2026-09-05'
+method: searched
+source: >-
+  Clearstream resource library connectivity section and operational-news feed (all HTTP 200,
+  fetched 2026-09-05), the Clearstream API Developer Guide (August 2025), and live probes of
+  api.clearstream.com / api-t2s-test.clearstream.com.
+description: >-
+  Lifecycle posture for the Clearstream API Platform and the ClearstreamXact connectivity
+  channels behind it. Clearstream runs a heavyweight, contract-governed change process for its
+  post-trade services — dated operational news, announcements and release notices — but it
+  publishes no API-specific versioning policy, no deprecation policy, no Sunset/Deprecation
+  header support and no component status dashboard.
+versioning:
+  scheme: path-major plus scope-major
+  examples:
+    - /playground/v1/info
+    - /cmax/v1
+    - scope ocapi-playground-v1
+    - scope scim2-ext-v1
+  policy_published: false
+  note: >-
+    A consumer's OAuth scope is version-pinned, so a major-version change is also a re-grant
+    inside the client's Xact Organisation Unit. No published statement covers how long a major
+    version lives or how a successor is announced.
+deprecation:
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  evidence: >-
+    No deprecation or sunset policy appears on the Clearstream API services page, in the
+    Developer Guide, or in the Deutsche Börse API Platform consumer documentation.
+certificate_lifecycle:
+  client_certificate_validity: 2 years
+  client_renewal: >-
+    Xact OU administrators can see the expiry date in the API consumer credential details screen
+    and must replace certificates before expiry.
+  server_certificate_rotation: >-
+    Clearstream states it "reserves the right to update API server certificates at any point in
+    time with no prior announcement", and that certificate pinning is unsupported. This is a real
+    operational constraint for an automated client: pin nothing, trust the DigiCert Global Root G2 chain.
+  source: Clearstream API Developer Guide, "Certificate Chains, Certificate Authorities (CAs), Truststores & more…"
+availability:
+  status_page: >-
+    No component status dashboard. Clearstream's published incident and service-change channel is
+    the resource library operational-news feed, which carries dated notices such as
+    "Swift and Xact Web Portal: ICSD notifications delay - Update II" (2026-09-02).
+  status_url: https://www.clearstream.com/clearstream-en/res-library/operational-news
+  maintenance_signal: >-
+    None machine-readable. During the maintenance window observed on 2026-09-05 the entire
+    api.clearstream.com host answered every path with a 503 and an HTML "Scheduled Maintenance"
+    page — no Retry-After, no JSON body, no advertised window.
+  observed:
+    - url: https://api.clearstream.com/
+      status: 503
+      fetched: '2026-09-05'
+    - url: https://xact.clearstream.com/
+      status: 503
+      fetched: '2026-09-05'
+    - url: https://api-t2s-test.clearstream.com/
+      status: 200
+      fetched: '2026-09-05'
+sla:
+  published: false
+  note: >-
+    Clearstream publishes service-level material for its post-trade services in the resource
+    library under the client contract; no API-specific SLA is public.
+change_channels:
+  - name: Operational news
+    url: https://www.clearstream.com/clearstream-en/res-library/operational-news
+    kind: dated service and incident notices
+  - name: Announcements
+    url: https://www.clearstream.com/clearstream-en/res-library/announcements
+    kind: dated client announcements
+  - name: Releases and initiatives
+    url: https://www.clearstream.com/clearstream-en/res-library/releases-and-initiatives
+    kind: release programme material
+  - name: Deutsche Börse API Platform release notes
+    url: https://docs.developer.deutsche-boerse.com/blog
+    kind: platform release notes for the group API platform Clearstream publishes into
+deprecated_operations: []
+deprecated_operations_note: >-
+  Cannot be derived — Clearstream publishes no OpenAPI outside the registration-gated Deutsche
+  Börse Digital Business Platform catalogue, so there is no spec to read `deprecated: true` from.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

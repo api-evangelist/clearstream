@@ -1,0 +1,72 @@
+specification: API Commons OAuth Scopes
+specificationVersion: '0.1'
+provider: Clearstream
+providerId: clearstream
+generated: '2026-09-05'
+modified: '2026-09-05'
+method: probed
+source: >-
+  Live unauthenticated GETs against the Clearstream API Platform pre-production host
+  https://api-t2s-test.clearstream.com on 2026-09-05. Each protected prefix answers 403 with a
+  JSON body that names the exact OAuth scopes it requires. Scope semantics cross-read from the
+  Clearstream API Developer Guide (August 2025).
+docs:
+  - https://www.clearstream.com/caas/v1/media/2934048/data/3fa3fec668d8dd198e9bed4df879b26b/api-developer-guide.pdf
+  - https://www.clearstream.com/clearstream-en/res-library/connectivity/clearstream-api-services-2916788
+description: >-
+  OAuth 2.0 scopes accepted by the Clearstream API Platform token server at
+  /authmanager/oauth2/access_token. Clearstream requires a two-part scope string: the literal
+  `allow` scope on every request, plus at least one API-specific scope naming the resource being
+  called. The scopes below were disclosed by the platform itself in 403 responses to
+  unauthenticated probes — this is not a derived or inferred list, but it is also not exhaustive:
+  the full catalogue of scopes a given consumer may request is returned by the token endpoint in
+  the 400 body when an invalid scope is requested, and that requires credentials to see.
+scope_string_format: '<mandatory scope> <one or more API scopes>, space separated'
+scopes:
+  - scope: allow
+    kind: mandatory
+    description: >-
+      Required on every token request. Present in every observed required_scopes.mandatory
+      field; on its own it grants nothing.
+    evidence: https://api-t2s-test.clearstream.com/playground/v1/info
+    evidence_status: 403
+  - scope: ocapi-playground-v1
+    kind: api
+    api: Clearstream API Playground
+    path_prefix: /playground
+    description: >-
+      Grants the free-of-charge synthetic Playground API used for connectivity testing and
+      initial onboarding (endpoints /playground/v1/info and /playground/v1/echo).
+    evidence: https://api-t2s-test.clearstream.com/playground/v1/info
+    evidence_status: 403
+  - scope: scim2-ext-v1
+    kind: api
+    api: Xact Web Portal User Management (SCIM 2.0)
+    path_prefix: /scim2
+    description: >-
+      Grants the SCIM 2.0 User Management API for provisioning, maintaining and monitoring Xact
+      Web Portal users. The developer guide notes that most calls additionally require the Xact
+      SCIM Admin or SCIM Read-Only role on the consumer.
+    evidence: https://api-t2s-test.clearstream.com/scim2
+    evidence_status: 403
+  - scope: cmax-api
+    kind: api
+    api: CmaX triparty collateral management
+    path_prefix: /cmax
+    description: >-
+      Grants the CmaX collateral management API surface. Discovered by probe; Clearstream's
+      public pages describe CmaX as the triparty collateral platform but do not yet document
+      this REST surface outside the gated Digital Business Platform catalogue.
+    evidence: https://api-t2s-test.clearstream.com/cmax/v1
+    evidence_status: 403
+completeness:
+  exhaustive: false
+  note: >-
+    Only prefixes that could be named from Clearstream's own published material were probed;
+    a 200 HTML landing page is the platform's catch-all for an unknown path, so absence of a
+    403 is not proof a surface does not exist. The authoritative list lives in the Deutsche
+    Börse Digital Business Platform API catalogue, which requires registration
+    (https://developer.deutsche-boerse.com/console/api/v2/apis returned 401 on 2026-09-05).
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

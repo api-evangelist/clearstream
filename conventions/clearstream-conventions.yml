@@ -1,0 +1,124 @@
+specification: API Commons Conventions
+specificationVersion: '0.1'
+provider: Clearstream
+providerId: clearstream
+generated: '2026-09-05'
+modified: '2026-09-05'
+method: searched
+source: >-
+  Clearstream API Developer Guide (August 2025), the Clearstream API services page
+  (https://www.clearstream.com/clearstream-en/res-library/connectivity/clearstream-api-services-2916788,
+  HTTP 200), the Deutsche Börse API Platform consumer documentation
+  (https://docs.developer.deutsche-boerse.com/docs/consumer/, HTTP 200), and live probes of
+  https://api-t2s-test.clearstream.com on 2026-09-05.
+description: >-
+  Cross-cutting runtime semantics for the Clearstream API Platform. Clearstream publishes an
+  unusually precise authentication and scope contract and an unusually thin runtime contract:
+  there is no published idempotency mechanism, no pagination convention, no request-id header,
+  no rate-limit header specification and no reversal-window documentation outside the gated
+  Digital Business Platform catalogue. Everything below is recorded as found; absences are
+  stated as absences.
+authentication:
+  style: OAuth 2.0 password grant over mandatory mutual TLS
+  header: 'Authorization: Bearer <JWT>'
+  token_endpoint: https://api.clearstream.com/authmanager/oauth2/access_token
+  token_lifetime_seconds: 3599
+  refresh: refresh_token issued alongside every access token
+  detail: authentication/clearstream-authentication.yml
+versioning:
+  style: path-major and scope-major
+  detail: >-
+    Resource paths carry a major version segment (/playground/v1/info, /cmax/v1). OAuth scopes
+    carry the same version independently (ocapi-playground-v1, scim2-ext-v1), so a consumer's
+    grant is pinned to an API major version. No published policy states how long a major version
+    is supported or how a new one is announced.
+  build_versions_observed:
+    - surface: Clearstream API Platform support page
+      version: v4.2606XP_POST.5
+      observed: '2026-09-05'
+      url: https://api-t2s-test.clearstream.com/ui/support.html
+    - surface: Playground API /playground/v1/info
+      version: 1.221101XP.12
+      source: Clearstream API Developer Guide example response
+error_envelope:
+  shape: custom JSON — { status, error, required_scopes?, message }
+  rfc9457: false
+  detail: errors/clearstream-problem-types.yml
+  strength: >-
+    Scope-denial responses name the exact scopes required, which makes a 403 self-remediating
+    for a machine caller. That is better than most catalogues manage.
+  weakness: >-
+    During maintenance the host returns an HTML page with a 503 on every path, including JSON
+    endpoints, so an automated client gets an unparseable body rather than a structured error.
+idempotency:
+  coverage: none
+  mechanism: null
+  scope: []
+  note: >-
+    No Idempotency-Key header, no idempotent-retry guidance and no replay-protection statement
+    appears anywhere in the Clearstream API Developer Guide, the API services page or the
+    Deutsche Börse consumer documentation. The platform does have a mutating surface — SCIM 2.0
+    user provisioning creates, updates and deletes users — so this is an absence rather than an
+    N/A. Recorded as `none` because a caller retrying a failed POST has no published guarantee.
+reversibility:
+  grade: undocumented
+  applies: true
+  note: >-
+    The platform carries write operations (SCIM 2.0 user create/update/delete on /scim2, and the
+    CmaX collateral surface on /cmax) but Clearstream publishes no reversal operation, no undo
+    window and no restore path for them outside the registration-gated catalogue. Per the
+    no-fabrication rule no window is asserted here: the underlying post-trade services do have
+    real reversal semantics (settlement instruction cancellation, collateral substitution) but
+    those are governed by the ISO 15022/20022 message set and the client's contract, not by a
+    documented REST reversal operation, and welding one onto the other would be a guess.
+  write_surfaces:
+    - surface: /scim2 (SCIM 2.0 User Management)
+      reversal_operation: null
+      window: null
+      evidence: https://api-t2s-test.clearstream.com/scim2 (403, scope scim2-ext-v1)
+    - surface: /cmax (CmaX collateral management)
+      reversal_operation: null
+      window: null
+      evidence: https://api-t2s-test.clearstream.com/cmax/v1 (403, scope cmax-api)
+pagination:
+  style: undocumented
+  note: >-
+    No pagination convention is published. The SCIM 2.0 API, if it follows RFC 7644, would use
+    startIndex/count/totalResults — but that is an inference from the standard, not a
+    Clearstream statement, and is not asserted here.
+rate_limit_signaling:
+  status_code: 429
+  headers: undocumented
+  note: >-
+    The group platform documents the 429 semantics and the shape of a limit (rate + burst + time
+    unit) but names no response headers, and the numeric limits sit inside the gated API Detail
+    Page. See rate-limits/clearstream-rate-limits.yml.
+request_tracing:
+  request_id_header: none published
+  note: >-
+    Clearstream's support checklist asks clients to supply timestamps, command history and full
+    request/response captures when raising an issue — which is what a support process looks like
+    when there is no correlation id to quote.
+content_negotiation:
+  request: application/x-www-form-urlencoded at the token endpoint; application/json on resources
+  response: application/json; charset=utf-8 on resources; text/html during maintenance
+environments:
+  production: https://api.clearstream.com
+  pre_production: https://api-t2s-test.clearstream.com
+  detail: sandbox/clearstream-sandbox.yml
+onboarding:
+  self_service: false
+  note: >-
+    Access is granted by SWIFT MT599 message to CEDELULLXXX (attn. PRGConnect) naming the API
+    resources to link to the client's Xact Organisation Unit. There is no sign-up form and no
+    trial key; the API is an extension of an existing Clearstream client relationship.
+cross_links:
+  authentication: authentication/clearstream-authentication.yml
+  scopes: scopes/clearstream-scopes.yml
+  errors: errors/clearstream-problem-types.yml
+  lifecycle: lifecycle/clearstream-lifecycle.yml
+  rate_limits: rate-limits/clearstream-rate-limits.yml
+  sandbox: sandbox/clearstream-sandbox.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

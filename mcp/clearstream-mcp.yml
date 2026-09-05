@@ -1,0 +1,75 @@
+specification: API Commons MCP
+specificationVersion: '0.1'
+provider: Clearstream
+providerId: clearstream
+generated: '2026-09-05'
+modified: '2026-09-05'
+method: derived
+status: candidate
+source: >-
+  Derived from the two Clearstream API Playground operations documented verbatim in the
+  Clearstream API Developer Guide (August 2025) and confirmed to exist by live 403 probes of
+  https://api-t2s-test.clearstream.com/playground on 2026-09-05. No MCP server exists; this is a
+  candidate shape only.
+description: >-
+  Clearstream ships no Model Context Protocol server, hosted or local. Probes of /mcp on
+  www.clearstream.com (404), api.clearstream.com (503, host in maintenance) and
+  api-t2s-test.clearstream.com (200 HTML catch-all, not an MCP endpoint) found nothing, and no
+  Clearstream or Deutsche Börse document mentions MCP. The candidate tools below are derived
+  strictly from the only two operations Clearstream publishes the full request shape for; the
+  business APIs (SCIM 2.0 user management, CmaX collateral) are known to exist from their scope
+  disclosures but their operations and schemas live in the registration-gated Deutsche Börse
+  Digital Business Platform catalogue and are NOT guessed here.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: oauth
+  verified: probed
+  note: >-
+    auth is recorded as oauth because any future MCP server fronting this API would have to carry
+    the platform's OAuth 2.0 password grant AND a mutual-TLS client certificate issued to a named
+    Xact user — a materially harder agent story than a bearer key, and worth stating.
+tools: []
+candidate_tools:
+  - name: clearstream_playground_info
+    description: Return the Clearstream API Playground service banner and build version.
+    rest:
+      method: GET
+      path: /playground/v1/info
+      scopes: [allow, ocapi-playground-v1]
+    inputSchema:
+      type: object
+      properties: {}
+    confidence: high
+    evidence: Clearstream API Developer Guide, "Accessing the Playground API"
+  - name: clearstream_playground_echo
+    description: Echo a supplied value back through the Clearstream API Playground; used to verify token, certificate and connectivity end to end.
+    rest:
+      method: GET
+      path: /playground/v1/echo
+      scopes: [allow, ocapi-playground-v1]
+    inputSchema:
+      type: object
+      properties:
+        value:
+          type: string
+          description: The string to echo back.
+      required: [value]
+    confidence: high
+    evidence: Clearstream API Developer Guide, "Example code" chapter
+known_but_unmapped_surfaces:
+  - path_prefix: /scim2
+    api: Xact Web Portal User Management (SCIM 2.0)
+    scope: scim2-ext-v1
+    reason: >-
+      Operations and schemas are not public. SCIM 2.0 defines them, but asserting Clearstream's
+      operation set from the RFC would be a fabrication.
+  - path_prefix: /cmax
+    api: CmaX triparty collateral management
+    scope: cmax-api
+    reason: No public documentation of the REST operations behind this prefix.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

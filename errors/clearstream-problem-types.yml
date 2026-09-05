@@ -1,0 +1,103 @@
+specification: API Commons Error Catalog
+specificationVersion: '0.1'
+provider: Clearstream
+providerId: clearstream
+generated: '2026-09-05'
+modified: '2026-09-05'
+method: probed
+source: >-
+  Live unauthenticated probes of https://api-t2s-test.clearstream.com on 2026-09-05 (real 403
+  bodies captured verbatim) plus the Troubleshooting chapter of the Clearstream API Developer
+  Guide, August 2025 —
+  https://www.clearstream.com/caas/v1/media/2934048/data/3fa3fec668d8dd198e9bed4df879b26b/api-developer-guide.pdf
+format: custom-json
+format_note: >-
+  Clearstream does NOT use RFC 9457 problem+json. Errors are returned as application/json with a
+  bespoke envelope. This is recorded as observed, not as a recommendation.
+envelope:
+  media_type: application/json; charset=utf-8
+  fields:
+    - name: status
+      type: integer
+      description: Repeats the HTTP status code.
+    - name: error
+      type: string
+      description: The HTTP reason phrase, e.g. "Forbidden".
+    - name: required_scopes
+      type: object
+      description: >-
+        Present on scope-related 403s. Carries `mandatory` (the literal `allow` scope) and
+        `at_least_one_of` (an array of the API scopes that would unlock the requested prefix).
+        This is unusually good practice — the API tells the caller exactly what to ask for.
+    - name: message
+      type: string
+      description: Human-readable remediation sentence naming the path, the scopes and the certificate binding rule.
+  example_observed: |
+    {
+      "status": 403,
+      "error": "Forbidden",
+      "required_scopes": {
+        "mandatory": "allow",
+        "at_least_one_of": ["ocapi-playground-v1"]
+      },
+      "message": "Access denied to /playground. The OAuth2 token must contain the scope allow and at least one of the following scopes: ocapi-playground-v1. Additionally, the client TLS certificate Common Name (CN) must match the Xact user ID present in the OAuth2 token subject."
+    }
+problem_types:
+  - status: 400
+    title: Invalid scope requested
+    surface: POST /authmanager/oauth2/access_token
+    detail: >-
+      An OAuth token request naming a scope the consumer does not hold. The response body
+      enumerates the scopes that ARE valid for the calling consumer.
+    remediation: Re-request the token with the mandatory `allow` scope plus a scope from the returned list.
+    evidence: Clearstream API Developer Guide, Troubleshooting item 3
+  - status: 403
+    title: Forbidden — missing or wrong OAuth scope
+    surface: any protected resource prefix (/playground, /scim2, /cmax)
+    detail: >-
+      The bearer token does not carry the mandatory `allow` scope plus one of the scopes the
+      prefix requires, or the client TLS certificate CN does not match the Xact user id in the
+      token subject.
+    remediation: Request a token with the scopes listed in required_scopes.at_least_one_of, using the certificate issued to that same Xact user.
+    evidence: https://api-t2s-test.clearstream.com/playground/v1/info
+    evidence_status: 403
+  - status: 403
+    title: Forbidden — malformed token request
+    surface: POST /authmanager/oauth2/access_token
+    detail: >-
+      A token request whose grant_type, username or password is incorrect. The guide states the
+      cause is not disclosed in the response; it is visible only in the Xact Organisation Unit
+      audit log, which is available to granted Xact OU administrators.
+    remediation: Inspect the Xact OU audit log; verify grant_type=password, the consumer id and the password.
+    evidence: Clearstream API Developer Guide, Troubleshooting item 3
+  - status: 429
+    title: Too Many Requests
+    surface: APIs published with rate limiting enabled on the Deutsche Börse API Platform
+    detail: >-
+      Documented at the group platform level rather than by Clearstream: an API with rate
+      limiting enabled caps both the number of requests in a window and the number of concurrent
+      requests, and returns 429 when either is exceeded.
+    remediation: Back off; the per-API limit and burst size are shown in the API Detail Page's Access & Security section, which requires a Digital Business Platform account.
+    evidence: https://docs.developer.deutsche-boerse.com/docs/consumer/rate-limiting
+    evidence_status: 200
+  - status: 503
+    title: Scheduled Maintenance
+    surface: entire api.clearstream.com host
+    detail: >-
+      During a maintenance window the platform returns a branded "Scheduled Maintenance" HTML
+      page for every path on the host, including the token endpoint and the CA bundle download.
+      Note this is an HTML body on a JSON API — a client parsing the response as JSON will fail
+      rather than read a machine-readable error.
+    remediation: Retry after the window; there is no machine-readable maintenance signal and no status page carrying the window.
+    evidence: https://api.clearstream.com/
+    evidence_status: 503
+transport_errors:
+  - name: TLS handshake failure — no client certificate
+    detail: >-
+      Because mutual TLS is mandatory, a call without the SSL client certificate fails at the TLS
+      layer with an SSL error rather than an HTTP status. The guide demonstrates this with curl -vvv.
+  - name: Unsupported curl version
+    detail: Older curl builds (the guide names 7.47.0) fail the handshake against the platform.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

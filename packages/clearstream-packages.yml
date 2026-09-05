@@ -1,0 +1,52 @@
+specification: API Commons Packages
+specificationVersion: '0.1'
+provider: Clearstream
+providerId: clearstream
+generated: '2026-09-05'
+modified: '2026-09-05'
+method: searched
+source: >-
+  Registry searches on 2026-09-05 — registry.npmjs.org search for "clearstream", pypi.org/pypi
+  for clearstream / clearstream-api / clearstream-sdk (all 404) — plus a read of the Clearstream
+  API Developer Guide (August 2025) and the Clearstream API services page.
+description: >-
+  Clearstream publishes no first-party client libraries. The only integration example Clearstream
+  ships is a bash/curl script printed in the API Developer Guide; the guide's own framing is that
+  clients build against HTTP directly, using standard mutual-TLS-capable HTTP tooling. Nothing on
+  npm, PyPI, Maven Central, NuGet, RubyGems, crates.io, Packagist or pkg.go.dev is published by
+  Clearstream Banking S.A.
+packages: []
+package_count: 0
+official_sdk_count: 0
+findings:
+  - registry: npm
+    query: clearstream
+    result: >-
+      No package published by Clearstream Banking. The nearest hit, @churchapps/texting
+      (version 0.4.0, published 2026-08-18), belongs to an unrelated US church SMS product also
+      called Clearstream (clearstream.io) and is explicitly NOT attributed here.
+    version: null
+    published: null
+  - registry: pypi
+    query: clearstream, clearstream-api, clearstream-sdk
+    result: All 404 — no package exists under any of those names.
+    version: null
+    published: null
+name_collision_warning: >-
+  "Clearstream" is also the name of a US church text-messaging company at clearstream.io, which
+  owns the GitHub organisation github.com/clearstream (repos: sms-calculator, xml-to-array,
+  code-challenge; org bio "Clearstream is the church texting (and email!) service you'll love").
+  That organisation has no connection to Clearstream Banking S.A. and must not be attributed to
+  this record. It was previously wired into this repo's apis.yml as a GitHubOrganization pointer
+  and was removed on 2026-09-05.
+reference_implementation:
+  name: Bash / curl example
+  source: Clearstream API Developer Guide, "Example code" chapter
+  url: https://www.clearstream.com/caas/v1/media/2934048/data/3fa3fec668d8dd198e9bed4df879b26b/api-developer-guide.pdf
+  description: >-
+    Requests an access token with --cert / --cacert against /authmanager/oauth2/access_token,
+    parses it with jq, then calls /playground/v1/echo. Dependencies named: a recent curl (the
+    guide states 7.47.0 does not work) and jq.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
