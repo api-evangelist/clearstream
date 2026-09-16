@@ -33,18 +33,13 @@ specificationVersion: '0.23'
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/clearstream.png
 kind: company
 tags:
-- API Platform
 - Capital Markets
 - Collateral Management
 - Custody
 - Financial-Services
 - ISO 15022
 - ISO 20022
-- Mutual TLS
-- OAuth 2.0
-- Post-Trade
 - Post-Trade Infrastructure
-- SCIM
 - Securities
 - Settlement
 - Swift
@@ -198,6 +193,11 @@ apis:
 - aid: clearstream:api-platform
   name: Clearstream API Platform (Playground)
   tags:
+  - API Platform
+  - Mutual TLS
+  - Authentication
+  - Sandbox
+  tags_raw:
   - API Platform
   - Mutual TLS
   - OAuth 2.0
