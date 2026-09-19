@@ -156,6 +156,10 @@ apis:
 - aid: clearstream:vestima
   name: Clearstream Vestima
   tags:
+  - Fund
+  - ISO 20022
+  - Order Routing
+  tags_raw:
   - Funds
   - ISO 20022
   - Order Routing
