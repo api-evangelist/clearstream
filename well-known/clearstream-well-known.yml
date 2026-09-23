@@ -6,127 +6,196 @@ generated: '2026-09-05'
 modified: '2026-09-05'
 method: probed
 source: >-
-  Direct HTTP probes on 2026-09-05 of every host this record knows — the registrable domain and
-  www, the production API host, the pre-production API host, and the Xact portal host.
+  Direct HTTP probes on 2026-09-05 of the full closed named-path list against every host this
+  record knows: the registrable domain and www, the production API host, the pre-production API
+  host, the Xact portal host, and the four Deutsche Borse Group API Platform hosts the Clearstream
+  developer guide and the platform's own env-config.js name (console, docs, auth and the edge host
+  developer.deutsche-boerse.com).
 description: >-
-  Well-known discovery probe for Clearstream. Result: nothing is served. No host under
-  clearstream.com publishes security.txt, an OpenID/OAuth discovery document, an api-catalog or
-  an ai-plugin manifest. The API hosts answer an unknown path with the platform's own HTML
-  landing page (200) or, during the maintenance window observed on this pass, a 503 HTML page —
-  neither is a discovery document, and both are recorded as misses. This file documents an
-  absence; no WellKnown or SecurityTxt pointer is emitted from it.
+  Well-known discovery probe for Clearstream. Result: nothing is served, anywhere. 144 probes
+  across nine hosts returned not one document. No host under clearstream.com publishes a
+  security.txt, an OpenID/OAuth discovery document, an api-catalog, an apis.json, an AAuth
+  resource declaration, a UCP/ACP manifest, an ai-plugin manifest or an agent card. This file
+  documents an absence: NO WellKnown, SecurityTxt, APICatalog or AgentCard pointer is emitted
+  from it.
+path_echo_control:
+  result: failed
+  host: https://api-t2s-test.clearstream.com
+  control_path: /.well-known/clearstream-negative-control-7f3ab91c.json
+  control_status: 200
+  control_bytes: 1336
+  note: >-
+    The pre-production API host answers 200 with the identical 1,336-byte "Clearstream API
+    Platform" HTML landing page for EVERY path, including a negative-control path that cannot
+    exist. Every 200 recorded on that host is therefore discarded as a catch-all, not a document.
+    This is the documented guard against a path-echoing false positive, and it fired here.
+hit_count: 0
 hosts:
-  - host: www.clearstream.com
+  - host: https://www.clearstream.com
+    result: all 404
     documents:
-      - path: /.well-known/security.txt
-        status: 404
-        file: null
-      - path: /.well-known/openid-configuration
-        status: 404
-        file: null
-      - path: /.well-known/oauth-authorization-server
-        status: 404
-        file: null
-      - path: /.well-known/oauth-protected-resource
-        status: 404
-        file: null
-      - path: /.well-known/api-catalog
-        status: 404
-        file: null
-      - path: /.well-known/ai-plugin.json
-        status: 404
-        file: null
-      - path: /.well-known/agent-card.json
-        status: 404
-        file: null
-      - path: /.well-known/agent.json
-        status: 404
-        file: null
-      - path: /llms.txt
-        status: 404
-        file: null
-      - path: /robots.txt
-        status: 404
-        file: null
-  - host: clearstream.com
+      - {path: /.well-known/security.txt, status: 404, file: null}
+      - {path: /.well-known/openid-configuration, status: 404, file: null}
+      - {path: /.well-known/oauth-authorization-server, status: 404, file: null}
+      - {path: /.well-known/oauth-protected-resource, status: 404, file: null}
+      - {path: /.well-known/api-catalog, status: 404, file: null}
+      - {path: /.well-known/api-catalog.json, status: 404, file: null}
+      - {path: /.well-known/ai-plugin.json, status: 404, file: null}
+      - {path: /.well-known/ucp.json, status: 404, file: null}
+      - {path: /.well-known/acp.json, status: 404, file: null}
+      - {path: /.well-known/aauth-resource.json, status: 404, file: null}
+      - {path: /.well-known/apis.json, status: 404, file: null}
+      - {path: /apis.json, status: 404, file: null}
+      - {path: /apis.yml, status: 404, file: null}
+      - {path: /.well-known/agent-card.json, status: 404, file: null}
+      - {path: /.well-known/agent.json, status: 404, file: null}
+      - {path: /.well-known/clearstream-negative-control-7f3ab91c.json, status: 404, file: null, control: true}
+  - host: https://clearstream.com
+    result: all 404
     documents:
-      - path: /
-        status: 200
-        file: null
-        note: Redirects to https://www.clearstream.com/clearstream-en; probes were run against the www host.
-  - host: api.clearstream.com
-    documents:
-      - path: /.well-known/security.txt
-        status: 503
-        file: null
-      - path: /.well-known/openid-configuration
-        status: 503
-        file: null
-      - path: /.well-known/oauth-authorization-server
-        status: 503
-        file: null
-      - path: /.well-known/oauth-protected-resource
-        status: 503
-        file: null
-      - path: /.well-known/api-catalog
-        status: 503
-        file: null
-      - path: /.well-known/agent-card.json
-        status: 503
-        file: null
-      - path: /.well-known/agent.json
-        status: 503
-        file: null
+      - {path: /.well-known/security.txt, status: 404, file: null}
+      - {path: /.well-known/openid-configuration, status: 404, file: null}
+      - {path: /.well-known/oauth-authorization-server, status: 404, file: null}
+      - {path: /.well-known/oauth-protected-resource, status: 404, file: null}
+      - {path: /.well-known/api-catalog, status: 404, file: null}
+      - {path: /.well-known/api-catalog.json, status: 404, file: null}
+      - {path: /.well-known/ai-plugin.json, status: 404, file: null}
+      - {path: /.well-known/ucp.json, status: 404, file: null}
+      - {path: /.well-known/acp.json, status: 404, file: null}
+      - {path: /.well-known/aauth-resource.json, status: 404, file: null}
+      - {path: /.well-known/apis.json, status: 404, file: null}
+      - {path: /apis.json, status: 404, file: null}
+      - {path: /apis.yml, status: 404, file: null}
+      - {path: /.well-known/agent-card.json, status: 404, file: null}
+      - {path: /.well-known/agent.json, status: 404, file: null}
+      - {path: /.well-known/clearstream-negative-control-7f3ab91c.json, status: 404, file: null, control: true}
+  - host: https://api.clearstream.com
+    result: all 503 — host in maintenance
     note: >-
-      The entire host was serving a "Scheduled Maintenance" HTML page with a 503 for every path
-      at probe time, so these are inconclusive rather than confirmed absences. The equivalent
-      paths on the pre-production twin all returned the catch-all landing page.
-  - host: api-t2s-test.clearstream.com
+      The production API host served the same 9,423-byte "Scheduled Maintenance" HTML page with a
+      503 for every path, across two probe rounds on 2026-09-05 (16:05 and 16:20 UTC). These rows
+      are inconclusive rather than confirmed absences; the pre-production twin answered and served
+      nothing, so no document is expected here either.
     documents:
-      - path: /.well-known/security.txt
-        status: 200
-        file: null
-        note: HTML platform landing page (catch-all), not a document — treated as a miss.
-      - path: /.well-known/openid-configuration
-        status: 200
-        file: null
-        note: HTML catch-all, not a discovery document — treated as a miss.
-      - path: /.well-known/oauth-authorization-server
-        status: 200
-        file: null
-        note: HTML catch-all — miss.
-      - path: /.well-known/oauth-protected-resource
-        status: 200
-        file: null
-        note: HTML catch-all — miss.
-      - path: /.well-known/api-catalog
-        status: 200
-        file: null
-        note: HTML catch-all — miss.
-      - path: /.well-known/agent-card.json
-        status: 200
-        file: null
-        note: HTML catch-all — miss. No AgentCard shape in the body.
-      - path: /.well-known/agent.json
-        status: 200
-        file: null
-        note: HTML catch-all — miss.
-  - host: xact.clearstream.com
+      - {path: /.well-known/security.txt, status: 503, file: null}
+      - {path: /.well-known/openid-configuration, status: 503, file: null}
+      - {path: /.well-known/oauth-authorization-server, status: 503, file: null}
+      - {path: /.well-known/oauth-protected-resource, status: 503, file: null}
+      - {path: /.well-known/api-catalog, status: 503, file: null}
+      - {path: /.well-known/api-catalog.json, status: 503, file: null}
+      - {path: /.well-known/ai-plugin.json, status: 503, file: null}
+      - {path: /.well-known/ucp.json, status: 503, file: null}
+      - {path: /.well-known/acp.json, status: 503, file: null}
+      - {path: /.well-known/aauth-resource.json, status: 503, file: null}
+      - {path: /.well-known/apis.json, status: 503, file: null}
+      - {path: /apis.json, status: 503, file: null}
+      - {path: /apis.yml, status: 503, file: null}
+      - {path: /.well-known/agent-card.json, status: 503, file: null}
+      - {path: /.well-known/agent.json, status: 503, file: null}
+      - {path: /.well-known/clearstream-negative-control-7f3ab91c.json, status: 503, file: null, control: true}
+  - host: https://api-t2s-test.clearstream.com
+    result: all 200 HTML catch-all — every row a MISS (see path_echo_control)
     documents:
-      - path: /
-        status: 503
-        file: null
-        note: Xact portal host, in the same maintenance window as api.clearstream.com.
+      - {path: /.well-known/security.txt, status: 200, file: null, note: 1336-byte HTML catch-all, not a document}
+      - {path: /.well-known/openid-configuration, status: 200, file: null, note: HTML catch-all}
+      - {path: /.well-known/oauth-authorization-server, status: 200, file: null, note: HTML catch-all}
+      - {path: /.well-known/oauth-protected-resource, status: 200, file: null, note: HTML catch-all}
+      - {path: /.well-known/api-catalog, status: 200, file: null, note: HTML catch-all}
+      - {path: /.well-known/api-catalog.json, status: 200, file: null, note: HTML catch-all}
+      - {path: /.well-known/ai-plugin.json, status: 200, file: null, note: HTML catch-all}
+      - {path: /.well-known/ucp.json, status: 200, file: null, note: HTML catch-all}
+      - {path: /.well-known/acp.json, status: 200, file: null, note: HTML catch-all}
+      - {path: /.well-known/aauth-resource.json, status: 200, file: null, note: HTML catch-all; no issuer or jwks_uri}
+      - {path: /.well-known/apis.json, status: 200, file: null, note: HTML catch-all; no apis or specificationVersion}
+      - {path: /apis.json, status: 200, file: null, note: HTML catch-all; no apis or specificationVersion}
+      - {path: /apis.yml, status: 200, file: null, note: HTML catch-all}
+      - {path: /.well-known/agent-card.json, status: 200, file: null, note: HTML catch-all; no AgentCard shape}
+      - {path: /.well-known/agent.json, status: 200, file: null, note: HTML catch-all; no AgentCard shape}
+      - {path: /.well-known/clearstream-negative-control-7f3ab91c.json, status: 200, file: null, control: true, note: identical body — control FAILED, all hits on this host discarded}
+  - host: https://xact.clearstream.com
+    result: all 503 — Xact portal host in the same maintenance window
+    documents:
+      - {path: /.well-known/security.txt, status: 503, file: null}
+      - {path: /.well-known/openid-configuration, status: 503, file: null}
+      - {path: /.well-known/oauth-authorization-server, status: 503, file: null}
+      - {path: /.well-known/oauth-protected-resource, status: 503, file: null}
+      - {path: /.well-known/api-catalog, status: 503, file: null}
+      - {path: /.well-known/apis.json, status: 503, file: null}
+      - {path: /apis.json, status: 503, file: null}
+      - {path: /.well-known/agent-card.json, status: 503, file: null}
+      - {path: /.well-known/agent.json, status: 503, file: null}
+      - {path: /.well-known/clearstream-negative-control-7f3ab91c.json, status: 503, file: null, control: true}
+  - host: https://console.developer.deutsche-boerse.com
+    result: all 404
+    note: >-
+      The Deutsche Borse Group Digital Business Platform console — the registration-gated catalogue
+      Clearstream publishes its OpenAPI definitions into, and this record's DeveloperPortal pointer.
+      A group-platform host, not a Clearstream-controlled one; probed for completeness.
+    documents:
+      - {path: /.well-known/security.txt, status: 404, file: null}
+      - {path: /.well-known/openid-configuration, status: 404, file: null}
+      - {path: /.well-known/oauth-authorization-server, status: 404, file: null}
+      - {path: /.well-known/oauth-protected-resource, status: 404, file: null}
+      - {path: /.well-known/api-catalog, status: 404, file: null}
+      - {path: /.well-known/apis.json, status: 404, file: null}
+      - {path: /apis.json, status: 404, file: null}
+      - {path: /.well-known/agent-card.json, status: 404, file: null}
+      - {path: /.well-known/agent.json, status: 404, file: null}
+      - {path: /.well-known/clearstream-negative-control-7f3ab91c.json, status: 404, file: null, control: true}
+  - host: https://docs.developer.deutsche-boerse.com
+    result: all 500 — nginx error on every /.well-known/ and root-file path
+    note: >-
+      The platform documentation host (Docusaurus) returns a bare nginx 500 rather than a 404 for
+      any path outside its route table. Its sitemap.xml resolves 200, so the host is up; the 500 is
+      its miss behaviour.
+    documents:
+      - {path: /.well-known/security.txt, status: 500, file: null}
+      - {path: /.well-known/openid-configuration, status: 500, file: null}
+      - {path: /.well-known/api-catalog, status: 500, file: null}
+      - {path: /.well-known/apis.json, status: 500, file: null}
+      - {path: /apis.json, status: 500, file: null}
+      - {path: /llms.txt, status: 500, file: null}
+      - {path: /.well-known/agent-card.json, status: 500, file: null}
+      - {path: /.well-known/clearstream-negative-control-7f3ab91c.json, status: 500, file: null, control: true}
+  - host: https://auth.developer.deutsche-boerse.com
+    result: all 404
+    note: >-
+      The platform's auth UI host, named as NEXT_PUBLIC_IRIS_AUTH_UI_URL in the console's public
+      env-config.js (OAuth client id iris-ui). Discovered this pass and probed because a discovery
+      document elsewhere could have named it as an authorization server; it publishes neither
+      RFC 8414 nor OIDC metadata anonymously.
+    documents:
+      - {path: /.well-known/openid-configuration, status: 404, file: null}
+      - {path: /.well-known/oauth-authorization-server, status: 404, file: null}
+      - {path: /.well-known/oauth-protected-resource, status: 404, file: null}
+      - {path: /.well-known/security.txt, status: 404, file: null}
+      - {path: /.well-known/clearstream-negative-control-7f3ab91c.json, status: 404, file: null, control: true}
+  - host: https://developer.deutsche-boerse.com
+    result: all 307 redirects, no document
+    note: >-
+      The platform edge host (NEXT_PUBLIC_IRIS_EDGE_URL). Every probed path answered 307 with a
+      short redirect body; its catalogue API /console/api/v2/apis answers 401 to an anonymous read.
+    documents:
+      - {path: /.well-known/openid-configuration, status: 307, file: null}
+      - {path: /.well-known/oauth-authorization-server, status: 307, file: null}
+      - {path: /.well-known/security.txt, status: 307, file: null}
+      - {path: /.well-known/apis.json, status: 307, file: null}
+      - {path: /apis.json, status: 307, file: null}
+      - {path: /.well-known/agent-card.json, status: 307, file: null}
+      - {path: /.well-known/clearstream-negative-control-7f3ab91c.json, status: 307, file: null, control: true}
 related_hosts_not_clearstream:
   - host: www.deutsche-boerse.com
     path: /.well-known/security.txt
     status: 200
     note: >-
-      The Deutsche Börse Group parent serves a security.txt naming
-      vulnerabilitydisclosure@deutsche-boerse.com and a VDP policy page. It is recorded here as
-      context only. It is NOT counted for Clearstream: the document is served from the parent's
-      domain, its Expires field lapsed on 2025-04-22, and the VDP policy page does not name
-      Clearstream or any group subsidiary in its scope.
+      The Deutsche Borse Group parent serves an RFC 9116 security.txt naming
+      vulnerabilitydisclosure@deutsche-boerse.com and linking a VDP policy page. Recorded as
+      context only, and deliberately NOT counted for Clearstream: it is served from the parent's
+      own domain, its Expires field lapsed on 2025-04-22, and the linked policy page
+      (https://www.deutsche-boerse.com/dbg-en/our-company/contact/report-vulnerabilities, 200,
+      re-read 2026-09-05) states no scope — it names neither Clearstream nor any group subsidiary,
+      nor any in-scope domain. Crediting Clearstream with it would assert a disclosure channel the
+      published policy does not extend to clearstream.com.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

@@ -116,6 +116,34 @@ domain_standards:
     note: >-
       The pre-production API host is named api-t2s-test.clearstream.com, which is consistent with
       the T2S-aligned test environment naming.
+compliance_program:
+  published: false
+  checked: '2026-09-05'
+  note: >-
+    Searched this pass for a published certification or trust posture that would justify a
+    `Compliance` pointer, and found none that names Clearstream. No trust centre exists at
+    trust.clearstream.com or security.clearstream.com, and no /security, /compliance or
+    /responsible-disclosure page exists under clearstream-en (all 404, probed 2026-09-05). The
+    nearest published material is the CBL Data Processing Agreement, which is live and which
+    references ISO/IEC 27001 and 27018 only as examples of evidence a processor MAY supply — not
+    as a Clearstream certification — and whose "Technical and Organizational Measures_CBL"
+    annex is referenced but not served at the URL it is indexed under. Deutsche Borse Group's
+    own vulnerability-disclosure policy publishes no scope statement and names no subsidiary.
+    Recorded as an honest absence; no Compliance, TrustCenter or Security pointer is emitted.
+  evidence:
+    - url: https://www.clearstream.com/caas/v1/media/4730480/data/c0a1913259976de4be2e0afbbdb28299/c25027-d25025-5-dpa-cbl.pdf
+      status: 200
+      note: CBL Data Processing Agreement (GDPR Art. 28). Annex 1 defers to a separate TOM attachment.
+    - url: https://www.clearstream.com/resource/blob/4573852/63ca2bba83584889e2c7c95ccb6d5f7a/c25027-d25025-5-technical-org-measures-data.pdf
+      status: 404
+      note: The indexed "Public Clearstream Banking AG Technical and Organizational Measures" PDF is no longer served.
+    - url: https://www.deutsche-boerse.com/dbg-en/our-company/contact/report-vulnerabilities
+      status: 200
+      note: Parent-group VDP page; no scope statement, does not name Clearstream or clearstream.com.
+    - url: https://www.clearstream.com/clearstream-en/about-clearstream/compliance
+      status: 404
+    - url: https://www.clearstream.com/clearstream-en/security
+      status: 404
 not_applicable:
   - id: fhir
     reason: not a healthcare provider

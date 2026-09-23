@@ -8,6 +8,11 @@ hosts:
   cert_expires: Jan 14 23:59:59 2027 GMT
   hsts: true
   hsts_max_age: 31536000
+- host: api.clearstream.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Dec 23 23:59:59 2026 GMT
+  hsts: null
 domains:
 - domain: clearstream.com
   dnssec: false

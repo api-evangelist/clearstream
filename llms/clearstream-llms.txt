@@ -56,7 +56,12 @@ HTML page on every path, including JSON endpoints.
 
 No rate-limit numbers or headers, no idempotency mechanism, no pagination convention, no
 request-id header, no deprecation or sunset policy, no SLA, no status dashboard, no SDKs, no MCP
-server, no A2A agent card, no llms.txt of Clearstream's own, no security.txt on clearstream.com.
+server, no A2A agent card, no llms.txt of Clearstream's own, no security.txt on clearstream.com. Verified 2026-09-05 by probing the full named
+well-known path list (security.txt, openid-configuration, oauth-authorization-server,
+oauth-protected-resource, api-catalog, ai-plugin, ucp, acp, aauth-resource, apis.json, /apis.json,
+/apis.yml, agent-card.json, agent.json) across nine hosts: 144 probes, zero documents. The
+pre-production host answers 200 with the same HTML landing page for every path including a
+negative-control path that cannot exist, so none of its 200s is a document.
 
 ## Connectivity channels (the message layer)
 
@@ -86,6 +91,8 @@ server, no A2A agent card, no llms.txt of Clearstream's own, no security.txt on 
 - Deutsche Börse Group API Platform docs: https://docs.developer.deutsche-boerse.com
 - Connectivity resource library: https://www.clearstream.com/clearstream-en/res-library/connectivity
 - Operational news (change and incident channel): https://www.clearstream.com/clearstream-en/res-library/operational-news
+- Releases, Initiatives and Testing (forward change calendar): https://www.clearstream.com/clearstream-en/res-library/releases-and-initiatives
+- Clearstream Fee Schedule (the company's published price list — for post-trade services, not API calls): https://www.clearstream.com/clearstream-en/res-library/key-documents/clearstream-fee-schedule-1274812
 
 ## Disambiguation
 

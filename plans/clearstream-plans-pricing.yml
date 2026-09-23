@@ -44,6 +44,13 @@ notes:
     Clearstream's fee schedules for its post-trade services are published in the resource library
     key-documents section, but they price settlement, custody, collateral and fund services — not
     API calls. No API metering, overage or per-request price is published.
+  - >-
+    A `Pricing` pointer was added to apis.yml on 2026-09-05 aimed at the Clearstream Fee Schedule
+    landing page (https://www.clearstream.com/clearstream-en/res-library/key-documents/clearstream-fee-schedule-1274812,
+    HTTP 200). That is Clearstream's real, published price list — for settlement, custody,
+    collateral and fund services, revised several times a year — and it is the only pricing this
+    company publishes. It is NOT an API price list, and this artifact's plan_count of 0 stands:
+    no per-call price, quota, tier or overage is published anywhere.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
