@@ -36,13 +36,13 @@ tags:
 - Capital Markets
 - Collateral Management
 - Custody
-- Financial-Services
+- Financial Services
 - ISO 15022
 - ISO 20022
 - Post-Trade Infrastructure
 - Securities
 - Settlement
-- Swift
+- SWIFT
 tags_raw:
 - Capital Markets
 - Collateral Management
@@ -54,6 +54,7 @@ tags_raw:
 - Securities
 - Settlement
 - SWIFT
+- Financial-Services
 description: 'Clearstream Banking S.A. is the Deutsche Borse Group post-trade infrastructure business,
   providing settlement, custody, collateral management and investment-fund order routing for international
   securities. Its programmable surface has two layers. The incumbent layer is regulated post-trade messaging:
@@ -73,7 +74,7 @@ apis:
   - ISO 15022
   - ISO 20022
   - Settlement
-  - Swift
+  - SWIFT
   tags_raw:
   - Custody
   - ISO 15022
@@ -135,7 +136,7 @@ apis:
   - CSD
   - Domestic Settlement
   - Germany
-  - Swift
+  - SWIFT
   tags_raw:
   - CSD
   - Domestic Settlement
