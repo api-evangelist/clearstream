@@ -264,6 +264,8 @@ apis:
     or SCIM Read-Only role on top of the Xact Web Portal User Management API role. The OpenAPI definition
     is published in the registration-gated Deutsche Borse Digital Business Platform catalogue.'
 common:
+- type: FinOps
+  url: finops/clearstream-finops.yml
 - type: DomainSecurity
   url: security/clearstream-domain-security.yml
 - type: LinkedIn
