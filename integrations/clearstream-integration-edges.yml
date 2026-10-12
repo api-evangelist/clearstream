@@ -1,0 +1,28 @@
+edges:
+- partner_name: MiCA (EU)
+  partner: null
+  type: contract
+  channel: regulator-register
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv
+  contract_reference:
+    register: 'ESMA interim MiCA register: crypto-asset service providers (CASPS.csv)'
+    spec_file: null
+    role: authorised-casp
+    registered_name: Clearstream Banking S.A.
+    register_id: 549300OL514RA0SXJJ44
+    competent_authority: Commission de Surveillance du Secteur Financier (CSSF)
+    home_member_state: LU
+    authorised: 07/02/2025
+    services:
+    - a. providing custody and administration of crypto-assets on behalf of clients
+    matched_domain: clearstream.com
+    detected_by: sweep-crypto.py
+    detected: '2026-10-13'
+  detected_by: sweep-crypto.py
+  first_seen: '2026-10-13'
+generated: '2026-10-13'
+method: searched
+checked:
+- https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv
