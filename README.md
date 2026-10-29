@@ -1,4 +1,4 @@
-# Clearstream (clearstream)
+# Clearstream
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,77 +64,142 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Clearstream is a leading provider of post-trade infrastructure services for international securities transactions. They offer settlement, custody, and collateral management services for bonds, equities, and investment funds.
+Clearstream Banking S.A. is the Deutsche Borse Group post-trade infrastructure business, providing settlement, custody, collateral management and investment-fund order routing for international securities. Its programmable surface has two layers. The incumbent layer is regulated post-trade messaging: clients connect through ClearstreamXact (Xact Web Portal, Xact File Transfer over SWIFTNet FileAct, and Xact via SWIFT FIN), CASCADE via SWIFT and MQ, Vestima for fund order routing and CmaX for triparty collateral, exchanging ISO 15022 MT and ISO 20022 MX messages whose specifications Clearstream publishes to SWIFT MyStandards, with migration to ISO 20022 driven by the SWIFT CBPR+ programme. The newer layer is a genuine REST platform at api.clearstream.com, running an OAuth 2.0 password grant hardened by mandatory mutual TLS, whose first published API is SCIM 2.0 user management for the Xact Web Portal; a free synthetic Playground API and a CmaX collateral surface are live alongside it. The OpenAPI definitions are published into the Deutsche Borse Digital Business Platform catalogue, which requires registration.
 
-The Clearstream developer surface is built on regulated post-trade messaging rather than a public REST API. Clients connect through ClearstreamXact (Web Portal, File Transfer via SWIFTNet FileAct, and Xact via SWIFT FIN), CASCADE via SWIFT and MQ, the CreationOnline / CreationDirect channels, Vestima for fund order routing, and the CmaX triparty collateral platform. Messages follow ISO 15022 and ISO 20022 standards, with ongoing migration toward ISO 20022 driven by the SWIFT CBPR+ programme.
+**Areas:** Capital Markets · Collateral Management · Custody · Financial Services · ISO 15022 · ISO 20022 · Post-Trade Infrastructure · Securities · Settlement · SWIFT
 
-**APIs.json:** [apis.yml](https://raw.githubusercontent.com/api-evangelist/clearstream/refs/heads/main/apis.yml)
+## Clearstream on APIs.io
 
-## Scope
+Everything profiled for Clearstream is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/clearstream/](https://apis.io/providers/clearstream/)** — or go straight to one of the APIs or properties below.
 
-- **Type:** Index
-- **Position:** Consumer
-- **Access:** 3rd-Party
-- **x-type:** company
+### APIs (8)
 
-## Tags
+- [Clearstream Xact via SWIFT](https://apis.io/apis/clearstream/xact-via-swift/) — Xact via SWIFT delivers settlement, custody, asset servicing and reporting messages over the SWIFTNet FIN network. The interface uses ISO 15022 MT messages…
+- [Clearstream Xact File Transfer](https://apis.io/apis/clearstream/xact-file-transfer/) — Xact File Transfer offers bulk and report-style exchange of settlement, custody, and collateral messages over SWIFTNet FileAct. Files may be delivered in…
+- [Clearstream Xact Web Portal](https://apis.io/apis/clearstream/xact-web-portal/) — Xact Web Portal is the browser-based interface to ClearstreamXact for instructing settlement, custody and collateral activity, monitoring status, and…
+- [Clearstream CASCADE (CSD)](https://apis.io/apis/clearstream/cascade/) — CASCADE is the German central securities depository (CSD) settlement platform. CASCADE is reachable via SWIFT FIN/FileAct messages and via MQ-based…
+- [Clearstream Vestima](https://apis.io/apis/clearstream/vestima/) — Vestima is Clearstream's investment fund processing platform. It routes subscription, redemption, switch and transfer orders for mutual funds, ETFs, hedge…
+- [Clearstream CmaX (Triparty Collateral)](https://apis.io/apis/clearstream/cmax/) — CmaX is Clearstream's triparty collateral management platform, automating collateral allocation, optimisation, margining and substitution across repo,…
+- [Clearstream API Platform (Playground)](https://apis.io/apis/clearstream/api-platform/) — The Clearstream API Platform is the REST tier of ClearstreamXact, reachable at https://api.clearstream.com with a pre-production twin at…
+- [Clearstream Xact User Management (SCIM 2.0)](https://apis.io/apis/clearstream/scim2-user-management/) — The first business API Clearstream published on its API platform: User Management (SCIM2), an implementation of the SCIM 2.0 standard for provisioning,…
 
-Capital Markets, Collateral Management, Custody, Financial Services, ISO 15022, ISO 20022, Post-Trade Infrastructure, Securities, Settlement, SWIFT
+### Published properties
 
-## Timestamps
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-- **Created:** 2024-01-15
-- **Modified:** 2026-04-23
+#### MCP servers (1)
 
-## APIs
+Model Context Protocol servers that expose the API to agents.
 
-### Clearstream Xact via SWIFT
-Settlement, custody, asset servicing and reporting messages over the SWIFTNet FIN network. Uses ISO 15022 MT messages today, migrating to ISO 20022 MX in line with the SWIFT CBPR+ schedule.
+- [clearstream-mcp.yml](https://apis.io/servers/clearstream/clearstream-mcp-yml/)
 
-- [Documentation](https://www.clearstream.com/clearstream-en/securities-services/connectivity-1-/xact-via-swift--1276378)
-- [User Guides](https://www.clearstream.com/clearstream-en/securities-services/connectivity-1-/xact-via-swift-user-guides-1289256)
-- [SWIFT MyStandards](https://www.clearstream.com/clearstream-en/securities-services/connectivity-1-/swift-mystandards-1277070)
+#### JSON-LD (1)
 
-### Clearstream Xact File Transfer
-Bulk and report-style exchange of settlement, custody, and collateral messages over SWIFTNet FileAct. Files may be delivered in ISO 15022, ISO 20022, PDF, XML or XLS.
+Linked-data contexts for the provider's vocabulary.
 
-- [Documentation](https://www.clearstream.com/clearstream-en/securities-services/connectivity-1-/xact-file-transfer)
-- [Connectivity Manuals](https://www.clearstream.com/clearstream-en/keydocuments-1-/icsd-1-/connectivity-manuals)
+- [Clearstream Context](https://apis.io/jsonld/clearstream/clearstream-context/)
 
-### Clearstream Xact Web Portal
-Browser-based interface to ClearstreamXact for instructing settlement, custody and collateral activity, monitoring status, and reviewing reports.
+#### Governance rules (1)
 
-- [Documentation](https://www.clearstream.com/clearstream-en/securities-services/connectivity-1-/clearstreamxact)
-- [Testing](https://www.clearstream.com/clearstream-en/securities-services/connectivity-1-/clearstreamxact/testing)
+Spectral rulesets for the provider's contracts.
 
-### Clearstream CASCADE (CSD)
-German central securities depository (CSD) settlement platform. Reachable via SWIFT FIN/FileAct messages and via MQ-based host-to-host connectivity.
+- [Clearstream API Rules](https://apis.io/rules/clearstream/clearstream-rules/)
 
-- [Documentation](https://www.clearstream.com/clearstream-en/securities-services/connectivity-1-/cascade)
-- [CASCADE via SWIFT](https://www.clearstream.com/clearstream-en/securities-services/connectivity-1-/cascade/cascade-via-swift)
+#### Security (2)
 
-### Clearstream Vestima
-Investment fund processing platform that routes subscription, redemption, switch and transfer orders for mutual funds, ETFs, hedge funds and alternatives.
+Authentication, trust centre, and vulnerability disclosure.
 
-- [Documentation](https://www.clearstream.com/clearstream-en/securities-services/funds-services-1-/vestima)
+- [Clearstream Authentication](https://apis.io/security/clearstream/clearstream-authentication/)
+- [Clearstream Domain Security](https://apis.io/security/clearstream/clearstream-domain-security/)
 
-### Clearstream CmaX (Triparty Collateral)
-Triparty collateral management platform that automates allocation, optimisation, margining and substitution across repo, securities lending, and OTC derivatives exposures.
+#### OAuth scopes (1)
 
-- [Documentation](https://www.clearstream.com/clearstream-en/securities-services/collateral-management)
+The permissions the API asks for.
 
-## Common Properties
+- [Clearstream Scopes](https://apis.io/scopes/clearstream/clearstream-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Clearstream Plans Pricing](https://apis.io/plans/clearstream/clearstream-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Clearstream Rate Limits](https://apis.io/rate-limits/clearstream/clearstream-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Clearstream Finops](https://apis.io/finops/clearstream/clearstream-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.clearstream.com/)
-- [Portal](https://www.clearstream.com/clearstream-en/products-and-services)
-- [Documentation](https://www.clearstream.com/clearstream-en/keydocuments-1-/icsd-1-/connectivity-manuals)
-- [Support](https://www.clearstream.com/clearstream-en/contact)
-- [Terms of Service](https://www.clearstream.com/clearstream-en/legal-and-regulatory)
-- [JSON-LD](json-ld/clearstream-context.jsonld)
-- [Spectral](rules/clearstream-rules.yml)
-- [Naftiko Capabilities](capabilities/clearstream-post-trade.yaml)
+- [Documentation](https://www.clearstream.com/clearstream-en/res-library/connectivity/clearstream-api-services-2916788)
+- [Getting started](https://www.clearstream.com/caas/v1/media/2934048/data/3fa3fec668d8dd198e9bed4df879b26b/api-developer-guide.pdf)
+- [Pricing](https://www.clearstream.com/clearstream-en/res-library/key-documents/clearstream-fee-schedule-1274812)
+- [Sign up](https://www.clearstream.com/clearstream-en/about-clearstream/becoming-a-clearstream-client-1277376)
+- [Support](https://www.clearstream.com/clearstream-en/about-clearstream/office-locations)
+- [Blog](https://www.clearstream.com/clearstream-en/newsroom)
+- [Terms of service](https://docs.developer.deutsche-boerse.com/files/DBAG_API_Platform_Terms_of_Use.pdf)
+- [Privacy policy](https://www.clearstream.com/clearstream-en/privacy-notice)
+- [Status](https://www.clearstream.com/clearstream-en/res-library/operational-news)
 
-## Maintainers
+## API Evangelist rating
 
-- **FN:** Kin Lane
-- **Email:** kin@apievangelist.com
+**Kin Score 39.0** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 69.6 |
+| Contract quality | 6.7 |
+| Contract governance | 29.5 |
+| Operational transparency | 36.8 |
+| Developer ergonomics | 52.4 |
+| Access clarity | 44.7 |
+
+**Agent readiness 7.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 38.0** — Securities & Market Data
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/clearstream/](https://apis.io/providers/clearstream/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Clearstream: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/clearstream/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
