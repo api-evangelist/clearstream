@@ -13,16 +13,24 @@ deliveryModel:
   generated: '2026-08-28'
   method: derived
 accessModel:
-  pricing: freemium
-  onboarding: unknown
+  pricing: paid
+  onboarding: self-serve
   trial: false
   try_now: false
   public: false
-  label: Freemium
-  confidence: medium
+  gated: none
+  gated_source:
+  - onboarding
+  label: Paid · Self-serve signup
+  confidence: high
   source:
-  - plans
-  generated: '2026-07-22'
+  - finops
+  - authentication
+  - scopes
+  - rate-limits
+  - security
+  - sandbox
+  generated: '2026-11-02'
   method: derived
 created: '2024-01-15'
 modified: '2026-09-05'
